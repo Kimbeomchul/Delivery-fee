@@ -5,18 +5,18 @@
         <v-row style="height:40px;"> </v-row>
 
         <v-row>
-            <v-col cols="9" sm="6">
+            <v-col cols="9" xs="6">
                 <v-text-field dense clearable placeholder="휴대폰번호를 입력하세요"></v-text-field>
             </v-col>
-            <v-col cols="2" sm="6">
+            <v-col cols="2" xs="6">
                 <v-btn elevation="1" small>인증하기</v-btn>
             </v-col>
         </v-row>
         <v-row>
-            <v-col cols="9" sm="6">
+            <v-col cols="9" xs="6">
                 <v-text-field dense clearable placeholder="휴대폰번호를 입력하세요"></v-text-field>
             </v-col>
-            <v-col cols="2" sm="6">
+            <v-col cols="2" xs="6">
                 <v-btn elevation="1" small>인증확인</v-btn>
             </v-col>
         </v-row>
