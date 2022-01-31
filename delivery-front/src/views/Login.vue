@@ -22,7 +22,7 @@
         </v-row>
         <v-row style="height:40px;"> </v-row>
 
-        <v-btn block x-large rounded color="#52D4DC" dark>
+        <v-btn block x-large rounded color="#52D4DC" dark class="font-weight-bold" style="font-size:1.02em">
             시작하기
         </v-btn>
     </v-container>
