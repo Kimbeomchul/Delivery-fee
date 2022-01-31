@@ -29,6 +29,11 @@ const routes = [
         name: "maps",
         component: () => import("../views/Map.vue"),
     },
+    {
+        path: "/detail2",
+        name: "detail2",
+        component: () => import("../views/Detail2.vue"),
+    },
 ];
 
 const router = new VueRouter({
