@@ -30,12 +30,12 @@
                 </v-col>
                 <v-col cols="4" class="pt-4 ">
                     <v-img
-                        class="rounded-card"
+                        class="rounded-lg"
                         width="100"
                         height="100"
                         src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
                     ></v-img>
-                    <div class=" pt-1 font-weight-black">
+                    <div class="text-center pt-1 font-weight-black">
                         10시 35분
                     </div>
                 </v-col>
