@@ -151,7 +151,7 @@
             </v-card>
         </div>
 
-        <div class="pt-5">
+        <div class="pt-5 pb-3">
             <v-card class="rounded-lg" elevation="2" outline height="150">
                 <v-row>
                     <v-col class="pt-4 pl-8">
@@ -195,5 +195,11 @@
                 </v-row>
             </v-card>
         </div>
+
+        <v-btn fixed bottom right absoluteclass="mx-2" fab dark color="#52D4DC">
+            <v-icon dark>
+                mdi-plus
+            </v-icon>
+        </v-btn>
     </v-container>
 </template>
