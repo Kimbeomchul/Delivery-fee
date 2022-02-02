@@ -196,10 +196,40 @@
             </v-card>
         </div>
 
-        <v-btn fixed bottom right absoluteclass="mx-2" fab dark color="#52D4DC">
-            <v-icon dark>
-                mdi-plus
-            </v-icon>
-        </v-btn>
+        <v-bottom-sheet v-model="sheet">
+            <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                    fixed
+                    bottom
+                    right
+                    absoluteclass="mx-2"
+                    fab
+                    dark
+                    color="#52D4DC"
+                    v-bind="attrs"
+                    v-on="on"
+                >
+                    <v-icon dark>
+                        mdi-plus
+                    </v-icon>
+                </v-btn>
+            </template>
+            <v-sheet class="text-center" height="200px">
+                <v-btn class="mt-6" text color="error" @click="sheet = !sheet">
+                    close
+                </v-btn>
+                <div class="my-3">
+                    This is a bottom sheet using the inset prop
+                </div>
+            </v-sheet>
+        </v-bottom-sheet>
     </v-container>
 </template>
+
+<script>
+export default {
+    data: () => ({
+        sheet: false,
+    }),
+};
+</script>
