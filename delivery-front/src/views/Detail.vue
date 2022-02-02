@@ -42,7 +42,7 @@
             </v-row>
         </div>
 
-        <div class="pt-1 font-weight-black">
+        <div class="pt-1 font-weight-black" style="color:#52D4DC">
             내용
         </div>
         <v-text-field
@@ -51,20 +51,14 @@
             value="치킨을 시키려구 합니다. 맛나느치킨"
         ></v-text-field>
 
-        <div class="pb-5 pt-1 font-weight-black">
-            댓글
-        </div>
+        <div class="pb-5 pt-1 font-weight-black" style="color:#52D4DC">댓글</div>
         <v-divider class="pb-5"></v-divider>
 
         <v-row class="">
-            <v-col cols="4">
+            <v-col cols="10">
                 <div class="font-weight-black text-body-2">
                     거친 삑삑도요
-                </div>
-            </v-col>
-            <v-col cols="6">
-                <div class="text-caption">
-                    · 43분전
+                    <span class="text-caption">· 43분전 </span>
                 </div>
             </v-col>
             <v-col cols="2">
@@ -87,14 +81,10 @@
             오늘 관악산 다녀왔는데 정상에서먹은 내이름은 정상수~
         </div>
         <v-row class="">
-            <v-col cols="4">
+            <v-col cols="10">
                 <div class="font-weight-black text-body-2">
-                    거친 삑삑도요
-                </div>
-            </v-col>
-            <v-col cols="6">
-                <div class="text-caption">
-                    · 43분전
+                    거친 삑삑도요33
+                    <span class="text-caption">· 43분전 </span>
                 </div>
             </v-col>
             <v-col cols="2">
@@ -117,14 +107,10 @@
             오늘 관악산 다녀왔는데 정상에서먹은 내이름은 정상수~
         </div>
         <v-row class="">
-            <v-col cols="4">
+            <v-col cols="10">
                 <div class="font-weight-black text-body-2">
-                    거친 삑삑도요
-                </div>
-            </v-col>
-            <v-col cols="6">
-                <div class="text-caption">
-                    · 43분전
+                    거친 삑삑도요44
+                    <span class="text-caption">· 43분전 </span>
                 </div>
             </v-col>
             <v-col cols="2">
@@ -147,14 +133,10 @@
             오늘 관악산 다녀왔는데 정상에서먹은 내이름은 정상수~
         </div>
         <v-row class="">
-            <v-col cols="4">
+            <v-col cols="10">
                 <div class="font-weight-black text-body-2">
-                    거친 삑삑도요
-                </div>
-            </v-col>
-            <v-col cols="6">
-                <div class="text-caption">
-                    · 43분전
+                    거친 삑삑도요5555
+                    <span class="text-caption">· 43분전 </span>
                 </div>
             </v-col>
             <v-col cols="2">
