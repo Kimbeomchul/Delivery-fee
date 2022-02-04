@@ -27,21 +27,33 @@
                         </v-list-item-title>
                     </v-list-item>
                 </v-list>
-                <v-dialog v-model="dialog" max-width="390">
+                <v-dialog v-model="dialog" max-width="300">
                     <v-card>
                         <v-card-title class="text-body2">
                             "근처 파티구해요"에 참가하시겠습니까?
                         </v-card-title>
-                        <v-card-text>
+                        <v-card-text class="text-caption">
                             참가를 진행할 경우 나가기 전까지 유지됩니다.
                         </v-card-text>
+                        <v-divider></v-divider>
+
                         <v-card-actions>
-                            <v-spacer></v-spacer>
                             <!-- HACK: 버튼만 누르면 앱이 뻗음 고쳐야함-->
-                            <v-btn color="green darken-1" text @click="dialog = false">
+                            <v-btn
+                                class="text-h5"
+                                color="green darken-1"
+                                text
+                                @click="dialog = false"
+                            >
                                 아니요
                             </v-btn>
-                            <v-btn color="green darken-1" text @click="dialog = false">
+                            <v-spacer></v-spacer>
+                            <v-btn
+                                class="text-h5 font-weight-bold"
+                                color="green darken-1"
+                                text
+                                @click="dialog = false"
+                            >
                                 참가하기
                             </v-btn>
                         </v-card-actions>
