@@ -158,6 +158,87 @@
         <div class=" pb-5 text-body-2">
             오늘 관악산 다녀왔는데 정상에서먹은 내이름은 정상수~
         </div>
+        <v-row class="">
+            <v-col cols="10">
+                <div class="font-weight-black text-body-2">
+                    거친 삑삑도요5555
+                    <span class="text-caption">· 43분전 </span>
+                </div>
+            </v-col>
+            <v-col cols="2">
+                <v-menu bottom left>
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-btn icon v-bind="attrs" v-on="on">
+                            <v-icon small>mdi-dots-vertical</v-icon>
+                        </v-btn>
+                    </template>
+
+                    <v-list>
+                        <v-list-item v-for="(item, i) in items" :key="i">
+                            <v-list-item-title>{{ item.title }}</v-list-item-title>
+                        </v-list-item>
+                        <v-list-item v-for="(item, i) in items" :key="i">
+                            <v-list-item-title>{{ item.title }}</v-list-item-title>
+                        </v-list-item>
+                    </v-list>
+                </v-menu>
+            </v-col>
+        </v-row>
+        <div class=" pb-5 text-body-2">
+            오늘 관악산 다녀왔는데 정상에서먹은 내이름은 정상수~
+        </div>
+        <v-row class="">
+            <v-col cols="10">
+                <div class="font-weight-black text-body-2">
+                    거친 삑삑도요5555
+                    <span class="text-caption">· 43분전 </span>
+                </div>
+            </v-col>
+            <v-col cols="2">
+                <v-menu bottom left>
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-btn icon v-bind="attrs" v-on="on">
+                            <v-icon small>mdi-dots-vertical</v-icon>
+                        </v-btn>
+                    </template>
+
+                    <v-list>
+                        <v-list-item v-for="(item, i) in items" :key="i">
+                            <v-list-item-title>{{ item.title }}</v-list-item-title>
+                        </v-list-item>
+                    </v-list>
+                </v-menu>
+            </v-col>
+        </v-row>
+        <div class=" pb-5 text-body-2">
+            오늘 관악산 다녀왔는데 정상에서먹은 내이름은 정상수~
+        </div>
+        <v-row class="">
+            <v-col cols="10">
+                <div class="font-weight-black text-body-2">
+                    거친 삑삑도요5555
+                    <span class="text-caption">· 43분전 </span>
+                </div>
+            </v-col>
+            <v-col cols="2">
+                <v-menu bottom left>
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-btn icon v-bind="attrs" v-on="on">
+                            <v-icon small>mdi-dots-vertical</v-icon>
+                        </v-btn>
+                    </template>
+
+                    <v-list>
+                        <v-list-item v-for="(item, i) in items" :key="i">
+                            <v-list-item-title>{{ item.title }}</v-list-item-title>
+                        </v-list-item>
+                    </v-list>
+                </v-menu>
+            </v-col>
+        </v-row>
+        <div class=" pb-5 text-body-2">
+            오늘 관악산 다녀왔는데 정상에서먹은 내이름은 정상수~
+        </div>
     </v-container>
 </template>
 
