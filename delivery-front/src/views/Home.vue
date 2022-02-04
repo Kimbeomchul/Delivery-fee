@@ -3,7 +3,7 @@
         <v-row style="height:200px;"> </v-row>
         <img src="../assets/logo.png" alt="logo" />
         <v-row style="height:180px;"> </v-row>
-        <v-btn block x-large rounded color="#52D4DC" dark>
+        <v-btn router-link :to="{ name: 'login' }" block x-large rounded color="#52D4DC" dark>
             휴대폰으로 로그인
         </v-btn>
         <v-row style="height:40px;"> </v-row>

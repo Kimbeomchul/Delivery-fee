@@ -33,6 +33,8 @@
         <v-row style="height:40px;"> </v-row>
 
         <v-btn
+            router-link
+            :to="{ name: 'list' }"
             block
             x-large
             rounded

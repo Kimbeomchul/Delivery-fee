@@ -8,7 +8,7 @@
             dense
             class="shrink"
         >
-            <v-app-bar-nav-icon></v-app-bar-nav-icon>
+            <v-icon large @click="$router.go(-1)">mdi-chevron-left</v-icon>
             <v-spacer></v-spacer>
             <v-toolbar-title>배공파용</v-toolbar-title>
 

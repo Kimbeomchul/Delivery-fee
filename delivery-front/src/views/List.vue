@@ -1,6 +1,15 @@
 <template>
     <v-container class="spacing-playground pa-6">
-        <v-btn outlined color="#52D4DC" elevation="1" large block class="xl rounded-lg">
+        <v-btn
+            router-link
+            :to="{ name: 'map' }"
+            outlined
+            color="#52D4DC"
+            elevation="1"
+            large
+            block
+            class="xl rounded-lg"
+        >
             <div class="black--text font-weight-black" style="font-size:1.2em">
                 경기도 과천시
             </div>
@@ -12,7 +21,14 @@
         <v-divider class="pb-5"></v-divider>
 
         <div class="pt-5 pb-3">
-            <v-card class="rounded-lg" elevation="2" outline height="150">
+            <v-card
+                router-link
+                :to="{ name: 'detail' }"
+                class="rounded-lg"
+                elevation="2"
+                outline
+                height="150"
+            >
                 <v-row>
                     <v-col class="pt-4 pl-8">
                         <v-img
@@ -62,7 +78,14 @@
         <v-divider class="pb-5"></v-divider>
 
         <div class="pt-5 pb-3">
-            <v-card class="rounded-lg" elevation="2" outline height="150">
+            <v-card
+                router-link
+                :to="{ name: 'detail' }"
+                class="rounded-lg"
+                elevation="2"
+                outline
+                height="150"
+            >
                 <v-row>
                     <v-col class="pt-4 pl-8">
                         <v-img
@@ -107,7 +130,14 @@
         </div>
 
         <div class="pt-5 pb-3">
-            <v-card class="rounded-lg" elevation="2" outline height="150">
+            <v-card
+                router-link
+                :to="{ name: 'detail' }"
+                class="rounded-lg"
+                elevation="2"
+                outline
+                height="150"
+            >
                 <v-row>
                     <v-col class="pt-4 pl-8">
                         <v-img
@@ -152,7 +182,14 @@
         </div>
 
         <div class="pt-5 pb-3">
-            <v-card class="rounded-lg" elevation="2" outline height="150">
+            <v-card
+                router-link
+                :to="{ name: 'detail' }"
+                class="rounded-lg"
+                elevation="2"
+                outline
+                height="150"
+            >
                 <v-row>
                     <v-col class="pt-4 pl-8">
                         <v-img
