@@ -51,7 +51,10 @@
         </v-app-bar>
 
         <v-main>
-            <router-view />
+            <!-- FIXME: 페이지 트랜지션 적용 변경해야함 css -->
+            <transition name="fade">
+                <router-view />
+            </transition>
         </v-main>
 
         <!-- FIXME : 푸터 -> 공통 컴포넌트로 이동하기 -->
@@ -99,3 +102,13 @@ export default {
     }),
 };
 </script>
+
+<style>
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.3s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+    opacity: 0;
+}
+</style>
