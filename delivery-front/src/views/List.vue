@@ -265,7 +265,7 @@
                         <v-chip
                             small
                             class="ma-1"
-                            active-class="purple--text"
+                            active-class="blue--text"
                             :input-value="active"
                             @click="toggle"
                         >
