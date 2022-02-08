@@ -17,7 +17,7 @@ const routes = [
     {
         path: "/list",
         name: "list",
-        component: () => import("../views/List.vue"),
+        component: () => import("../views/ListWrite.vue"),
     },
     {
         path: "/detail",

@@ -1,3 +1,4 @@
+<!-- HACK: 아직까지 컴포넌트로 뺴야할지 말지 고민중 -->
 <template>
     <v-app-bar elevation="0" color="white" dense class="shrink">
         <v-app-bar-nav-icon></v-app-bar-nav-icon>
