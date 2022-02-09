@@ -54,7 +54,7 @@
         <div class="pb-5 pt-1 font-weight-black" style="color:#52D4DC">댓글</div>
         <v-divider class="pb-5"></v-divider>
 
-        <div v-for="i in num" v-bind:key="num + i">
+        <div class="pb-3 pl-3 pr-3" v-for="i in num" v-bind:key="num + i">
             <v-row>
                 <v-col cols="10">
                     <div class="font-weight-black text-body-2">
@@ -78,7 +78,7 @@
                     </v-menu>
                 </v-col>
             </v-row>
-            <div class=" pb-5 text-body-2">
+            <div class=" pb-2 pl-5 pr-5 text-body-2">
                 오늘 관악산 다녀왔는데 정상에서먹은 내이름은 정상수~
             </div>
         </div>
