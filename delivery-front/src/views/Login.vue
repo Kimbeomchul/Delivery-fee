@@ -23,7 +23,7 @@
                     class="pl-3"
                     dense
                     clearable
-                    placeholder="휴대폰번호를 입력하세요"
+                    placeholder="인증번호를 입력하세요"
                 ></v-text-field>
             </v-col>
             <v-col cols="2" xs="6" class="pa-4">
