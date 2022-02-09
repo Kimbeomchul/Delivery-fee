@@ -1,6 +1,7 @@
 <template>
-    <v-text-field hide-details dense v-model="message" outlined clearable label="댓글" type="text">
-        <template v-slot:append>
+        <v-flex xs12 sm6 md3>
+          <v-text-field label="댓글을 입력해주세요." type="text" outlined dense v-model="message">
+          <template v-slot:append>
             <v-fade-transition leave-absolute>
                 <v-progress-circular
                     v-if="loading"
@@ -12,12 +13,14 @@
                     v-else
                     width="24"
                     height="24"
-                    src="https://cdn.vuetifyjs.com/images/logos/v-alt.svg"
-                    alt=""
+                    src="../assets/btn.png"
+                    alt="btn"
                 />
             </v-fade-transition>
         </template>
-    </v-text-field>
+          </v-text-field>
+        </v-flex>
+
 </template>
 
 <script>
@@ -25,3 +28,17 @@ export default {
     name: "comment-component",
 };
 </script>
+<style scoped>
+.v-text-field--outlined >>> fieldset {
+  position: absolute;
+  border-color: white;
+  background-color: #E5E5E5;
+  z-index: 0;
+}
+.v-text-field{
+    border-radius: 12px;
+}
+.v-text-field >>> img{
+    z-index: 1;
+}
+</style>
