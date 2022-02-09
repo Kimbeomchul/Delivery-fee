@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'parties',
     'comments',
     'maps',
+    'common',
 ]
 
 MIDDLEWARE = [
