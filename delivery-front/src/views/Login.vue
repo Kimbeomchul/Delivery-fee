@@ -35,8 +35,7 @@
         <v-row style="height:40px;"> </v-row>
 
         <v-btn
-            router-link
-            :to="{ name: 'list' }"
+            :href="link"
             @click="signUp"
             block
             x-large
@@ -46,7 +45,7 @@
             class="font-weight-bold"
             style="font-size:1.02em"
         >
-            시작하기
+            카카오톡으로 시작하기
         </v-btn>
     </v-container>
 </template>
@@ -59,16 +58,24 @@ export default {
     data: () => ({
         phoneNumber: "asdfasdf",
         CertificationNumber: "",
+        link: "",
         //
     }),
     methods: {
         signUp: async function() {
-            let result = await request("/users", "GET");
-            console.log(result.code);
-            if (result.code === "201") {
-                // Do Something
-            }
+            // 문제 1: 버튼을 2번 눌러야 이동함, href가 2번째 이벤트부터 제대로 값이 들어가 동작하는 듯?
+            // 문제 2: 아직 백엔드 구현이 덜됨
+            try {
+                let result = await request("/auth/kakao/login/", "GET");
 
+                if (result.status === 200) {
+                    this.link = result.data.url;
+                    console.log(result.data.url);
+                    // Do Something
+                }
+            } catch (error) {
+                console.log(error);
+            }
             // fetch("http://localhost:8000/api/v1/users")
             //     .then((response) => {
             //         if (response.ok) {
