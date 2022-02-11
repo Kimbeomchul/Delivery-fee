@@ -11,6 +11,7 @@
                     dense
                     clearable
                     placeholder="휴대폰번호를 입력하세요"
+                    v-model="phoneNumber"
                 ></v-text-field>
             </v-col>
             <v-col cols="2" xs="6" class="pa-4">
@@ -24,6 +25,7 @@
                     dense
                     clearable
                     placeholder="인증번호를 입력하세요"
+                    v-model="CertificationNumber"
                 ></v-text-field>
             </v-col>
             <v-col cols="2" xs="6" class="pa-4">
@@ -35,6 +37,7 @@
         <v-btn
             router-link
             :to="{ name: 'list' }"
+            @click="signUp"
             block
             x-large
             rounded
@@ -47,3 +50,43 @@
         </v-btn>
     </v-container>
 </template>
+
+<script>
+import request from "@/request";
+
+export default {
+    name: "Login",
+    data: () => ({
+        phoneNumber: "asdfasdf",
+        CertificationNumber: "",
+        //
+    }),
+    methods: {
+        signUp: async function() {
+            let result = await request("/users", "GET");
+            console.log(result.code);
+            if (result.code === "201") {
+                // Do Something
+            }
+
+            // fetch("http://localhost:8000/api/v1/users")
+            //     .then((response) => {
+            //         if (response.ok) {
+            //             return response.json();
+            //         }
+            //         throw new Error("Network response was not ok");
+            //     })
+            //     .then((json) => {
+            //         this.posts.push({
+            //             userId: json.userId,
+            //             title: json.title,
+            //             body: json.body,
+            //         });
+            //     })
+            //     .catch((error) => {
+            //         console.log(error);
+            //     });
+        },
+    },
+};
+</script>

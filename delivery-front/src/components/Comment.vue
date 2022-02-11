@@ -26,8 +26,17 @@
 <script>
 export default {
     name: "comment-component",
+
+    data: () => ({
+        message: "",
+        loading: false,
+        dialog: false,
+        items: [{ title: "삭제" }, { title: "수정" }, { title: "나가기" }, { title: "참가하기" }],
+        //
+    }),
 };
 </script>
+
 <style scoped>
 .v-text-field--outlined >>> fieldset {
     position: absolute;

@@ -81,7 +81,6 @@ export default {
     name: "App",
     components: { CommentComponent },
     data: () => ({
-        message: "",
         loading: false,
         dialog: false,
         items: [{ title: "삭제" }, { title: "수정" }, { title: "나가기" }, { title: "참가하기" }],
