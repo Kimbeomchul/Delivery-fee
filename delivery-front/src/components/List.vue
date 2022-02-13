@@ -43,7 +43,7 @@
                     </v-col>
 
                     <v-col class="text-left">
-                        <div class="font-weight-black pt-4" style="font-size:1.2em">
+                        <div class="font-weight-black pt-4 pr-4 text-right" style="font-size:1.2em">
                             근처 파티 구해요
                         </div>
 
@@ -100,7 +100,7 @@
                     </v-col>
 
                     <v-col class="text-left">
-                        <div class="font-weight-black pt-4" style="font-size:1.2em">
+                        <div class="font-weight-black pt-4 pr-4 text-right" style="font-size:1.2em">
                             근처파티구해요
                         </div>
 

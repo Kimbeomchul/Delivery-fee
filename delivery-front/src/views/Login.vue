@@ -35,7 +35,20 @@
         <v-row style="height:40px;"> </v-row>
 
         <v-btn
-            @click="signUp"
+            @click="signUpGoogle"
+            block
+            x-large
+            rounded
+            color="#52D4DC"
+            dark
+            class="font-weight-bold"
+            style="font-size:1.02em"
+        >
+            Google로 시작하기
+        </v-btn>
+        <br />
+        <v-btn
+            @click="signUpKakao"
             block
             x-large
             rounded
@@ -60,7 +73,25 @@ export default {
         //
     }),
     methods: {
-        signUp: async function() {
+        signUpGoogle: async function() {
+            // 문제 1: 버튼을 2번 눌러야 이동함, href가 2번째 이벤트부터 제대로 값이 들어가 동작하는 듯?
+            // 문제 2: 아직 백엔드 구현이 덜됨
+            try {
+                let result = await request("/auth/google/login/", "GET");
+
+                if (result.status === 200) {
+                    console.log(result.data.url);
+                    // FIXME: window.location.href를 이용 하는데 좋은 방법인지 고려
+                    // 리다이렉트, location.href 가 정상적인 방법인가?
+                    // 1. 뷰 -> 장고 백엔드서버로 주소 이동
+                    // 2. 장고에서 회원가입 처리 후 -> redirect(localhost:8080/list)
+                    window.location.href = result.data.url;
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        signUpKakao: async function() {
             // 문제 1: 버튼을 2번 눌러야 이동함, href가 2번째 이벤트부터 제대로 값이 들어가 동작하는 듯?
             // 문제 2: 아직 백엔드 구현이 덜됨
             try {
