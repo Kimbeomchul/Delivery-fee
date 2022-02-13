@@ -1,4 +1,5 @@
 
+import profile
 import requests
 
 from django.shortcuts import redirect
@@ -46,6 +47,7 @@ def kakao_callback(request):
     token_req = requests.get(
         f"https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={rest_api_key}&redirect_uri={redirect_uri}&code={code}")
     token_req_json = token_req.json()
+    print(token_req_json, "><><><><>><><><>><")
     error = token_req_json.get("error")
     if error is not None:
         raise JSONDecodeError(error)
@@ -56,6 +58,7 @@ def kakao_callback(request):
     profile_request = requests.get(
         "https://kapi.kakao.com/v2/user/me", headers={"Authorization": f"Bearer {access_token}"})
     profile_json = profile_request.json()
+    print(profile_json, "----------->>>>>")
     error = profile_json.get("error")
     if error is not None:
         raise JSONDecodeError(error)
@@ -65,7 +68,6 @@ def kakao_callback(request):
     카카오톡 프로필 이미지, 배경 이미지 url 가져올 수 있음
     print(kakao_account) 참고
     """
-    # print(kakao_account)
     email = kakao_account.get('email')
     """
     Signup or Signin Request
@@ -82,7 +84,7 @@ def kakao_callback(request):
         # 기존에 Google로 가입된 유저
         data = {'access_token': access_token, 'code': code}
         accept = requests.post(
-            f"{BASE_URL}accounts/kakao/login/finish/", data=data)
+            f"{BASE_URL}/kakao/login/finish/", data=data)
         accept_status = accept.status_code
         if accept_status != 200:
             return JsonResponse({'err_msg': 'failed to signin'}, status=accept_status)
@@ -93,11 +95,12 @@ def kakao_callback(request):
         # 기존에 가입된 유저가 없으면 새로 가입
         data = {'access_token': access_token, 'code': code}
         accept = requests.post(
-            f"{BASE_URL}accounts/kakao/login/finish/", data=data)
+            f"{BASE_URL}/kakao/login/finish/", data=data)
         accept_status = accept.status_code
         if accept_status != 200:
             return JsonResponse({'err_msg': 'failed to signup'}, status=accept_status)
         # user의 pk, email, first name, last name과 Access Token, Refresh token 가져옴
+        print(accept.json())
         accept_json = accept.json()
         accept_json.pop('user', None)
         return JsonResponse(accept_json)
