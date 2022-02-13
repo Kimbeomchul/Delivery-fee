@@ -35,7 +35,6 @@
         <v-row style="height:40px;"> </v-row>
 
         <v-btn
-            :href="link"
             @click="signUp"
             block
             x-large
@@ -58,7 +57,6 @@ export default {
     data: () => ({
         phoneNumber: "asdfasdf",
         CertificationNumber: "",
-        link: "",
         //
     }),
     methods: {
@@ -69,30 +67,16 @@ export default {
                 let result = await request("/auth/kakao/login/", "GET");
 
                 if (result.status === 200) {
-                    this.link = result.data.url;
                     console.log(result.data.url);
-                    // Do Something
+                    // FIXME: window.location.href를 이용 하는데 좋은 방법인지 고려
+                    // 리다이렉트, location.href 가 정상적인 방법인가?
+                    // 1. 뷰 -> 장고 백엔드서버로 주소 이동
+                    // 2. 장고에서 회원가입 처리 후 -> redirect(localhost:8080/list)
+                    window.location.href = result.data.url;
                 }
             } catch (error) {
                 console.log(error);
             }
-            // fetch("http://localhost:8000/api/v1/users")
-            //     .then((response) => {
-            //         if (response.ok) {
-            //             return response.json();
-            //         }
-            //         throw new Error("Network response was not ok");
-            //     })
-            //     .then((json) => {
-            //         this.posts.push({
-            //             userId: json.userId,
-            //             title: json.title,
-            //             body: json.body,
-            //         });
-            //     })
-            //     .catch((error) => {
-            //         console.log(error);
-            //     });
         },
     },
 };

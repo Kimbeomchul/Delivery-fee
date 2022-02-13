@@ -103,7 +103,8 @@ def kakao_callback(request):
         print(accept.json())
         accept_json = accept.json()
         accept_json.pop('user', None)
-        return JsonResponse(accept_json)
+        return redirect("http://localhost:8080/list/")
+        # return JsonResponse(accept_json)
 
 
 class KakaoLogin(SocialLoginView):
