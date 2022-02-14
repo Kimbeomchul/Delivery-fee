@@ -28,6 +28,8 @@ GITHUB_CALLBACK_URI = BASE_URL + '/github/callback/'
 state = "random_string"
 
 
+# HACK: 완전히 뜯어 고쳐야 할 것 같음..
+
 class GooGleException(Exception):
     pass
 
