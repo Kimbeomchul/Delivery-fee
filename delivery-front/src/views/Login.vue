@@ -74,8 +74,6 @@ export default {
     }),
     methods: {
         signUpGoogle: async function() {
-            // 문제 1: 버튼을 2번 눌러야 이동함, href가 2번째 이벤트부터 제대로 값이 들어가 동작하는 듯?
-            // 문제 2: 아직 백엔드 구현이 덜됨
             try {
                 let result = await request("/auth/google/login/", "GET");
 
@@ -92,8 +90,6 @@ export default {
             }
         },
         signUpKakao: async function() {
-            // 문제 1: 버튼을 2번 눌러야 이동함, href가 2번째 이벤트부터 제대로 값이 들어가 동작하는 듯?
-            // 문제 2: 아직 백엔드 구현이 덜됨
             try {
                 let result = await request("/auth/kakao/login/", "GET");
 
