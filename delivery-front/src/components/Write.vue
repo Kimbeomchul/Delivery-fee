@@ -47,7 +47,7 @@
                 <v-slider
                     v-model="ex3.val"
                     :thumb-color="ex3.color"
-                    thumb-label="true"
+                    :thumb-label="true"
                     step="10"
                     ticks
                     dense
