@@ -53,7 +53,7 @@ export default {
         },
         addScript() {
             const script = document.createElement("script");
-            const appkey = this.$store.state.kakao_appkey;
+            const appkey = this.$store.state.kakaoAppkey;
             /* global kakao */
             script.onload = () => kakao.maps.load(this.initMap);
             script.src = `http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${appkey}`;

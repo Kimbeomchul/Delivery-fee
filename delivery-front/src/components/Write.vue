@@ -22,12 +22,17 @@
                 <div class="font-weight-black" style="color:#52D4DC">
                     제목
                 </div>
-                <v-text-field placeholder="제목을 입력해주세요."></v-text-field>
+                <v-text-field v-model="title" placeholder="제목을 입력해주세요."></v-text-field>
                 <div class="font-weight-black" style="color:#52D4DC">
                     종류
                 </div>
-                <v-item-group multiple>
-                    <v-item v-for="n in 8" :key="n" v-slot="{ active, toggle }">
+                <v-item-group multiple v-model="selectedTags">
+                    <v-item
+                        v-for="(item, index) in tags"
+                        :key="index"
+                        :value="item"
+                        v-slot="{ active, toggle }"
+                    >
                         <v-chip
                             small
                             class="ma-1"
@@ -35,7 +40,7 @@
                             :input-value="active"
                             @click="toggle"
                         >
-                            # 음식 {{ n }}
+                            # {{ item }}
                         </v-chip>
                     </v-item>
                 </v-item-group>
@@ -43,17 +48,20 @@
                 <div class="font-weight-black" style="color:#52D4DC">
                     주문하고 싶은 시간대를 선택해주세요
                 </div>
-                <div class="text-right text-caption" v-text="ex3.val + '분후'">분후</div>
+                <div class="text-right text-caption" v-text="timerSlider.val + '분후'">분후</div>
                 <v-slider
-                    v-model="ex3.val"
-                    :thumb-color="ex3.color"
+                    v-model="timerSlider.val"
+                    :thumb-color="timerSlider.color"
                     :thumb-label="true"
                     step="10"
+                    max="120"
                     ticks
                     dense
                     hide-details
                 ></v-slider>
-                <div class="font-weight-black text-right text-body2">오후 10시 30분</div>
+                <div class="font-weight-black text-right text-body2">
+                    {{ OrderTime.format("A HH시 mm분") }}
+                </div>
 
                 <div class="font-weight-black" style="color:#52D4DC">
                     내용
@@ -64,7 +72,7 @@
                     filled
                     no-resize
                     placeholder="내용을 입력해주세요."
-                    value=""
+                    v-model="content"
                 ></v-textarea>
                 <v-row>
                     <v-col cols="3">
@@ -88,7 +96,7 @@
                     dark
                     class="font-weight-bold"
                     style="font-size:1.02em"
-                    @click="sheet = !sheet"
+                    @click="createParty()"
                 >
                     작성하기
                 </v-btn>
@@ -98,13 +106,56 @@
 </template>
 
 <script>
+import request from "@/request";
+import dayjs from "dayjs";
+import "dayjs/locale/ko";
+dayjs.locale("ko");
+
 export default {
     name: "write-component",
     data: () => ({
+        title: "",
+        content: "",
         sheet: false,
-        ex1: { label: "color", val: 25, color: "orange darken-3" },
-        ex2: { label: "track-color", val: 75, color: "green lighten-1" },
-        ex3: { val: 0, color: "#52D4DC" },
+        selectedTags: "",
+        timerSlider: { val: 0, color: "#52D4DC" },
     }),
+    computed: {
+        tags() {
+            return this.$store.state.foodTags;
+        },
+        OrderTime() {
+            const date = dayjs().add(this.timerSlider.val, "minute");
+            return date;
+        },
+    },
+    methods: {
+        createParty: async function() {
+            const data = {
+                title: this.title,
+                tags: this.selectedTags,
+                order_time: this.OrderTime.format(),
+                content: this.content,
+                // HACK: user에 대한 정보를 소셜 로그인 성공 후 vuex에 넣어버려야함. 어케해야돼
+                user: 2,
+            };
+            console.log(data);
+            try {
+                const result = await request("/parties/", "POST", data);
+
+                if (result.status === 200) {
+                    console.log("제대로 들어감");
+                }
+            } catch (error) {
+                console.log(error);
+            }
+
+            // console.log(this.title);
+            // console.log(this.content);
+            // console.log(this.selectedTags);
+            // console.log(this.OrderTime.format());
+            this.sheet = !this.sheet;
+        },
+    },
 };
 </script>

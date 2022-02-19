@@ -16,9 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from rest_framework.routers import DefaultRouter
+
+from parties.views import PartyViewSet
+
+router = DefaultRouter()
+router.register('parties', PartyViewSet)
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
+    path('api/v1/', include(router.urls)),
     path('api/v1/auth/', include('authentication.urls')),
     path('api/v1/auth/', include('dj_rest_auth.urls')),
     path('api/v1/auth/', include('allauth.urls')),
