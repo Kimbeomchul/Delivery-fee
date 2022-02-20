@@ -124,6 +124,9 @@ export default {
         tags() {
             return this.$store.state.foodTags;
         },
+        userInfo() {
+            return this.$store.state.userInfo.user;
+        },
         OrderTime() {
             const date = dayjs().add(this.timerSlider.val, "minute");
             return date;
@@ -137,7 +140,7 @@ export default {
                 order_time: this.OrderTime.format(),
                 content: this.content,
                 // HACK: user에 대한 정보를 소셜 로그인 성공 후 vuex에 넣어버려야함. 어케해야돼
-                user: 2,
+                user: this.userInfo.pk,
             };
             console.log(data);
             try {
