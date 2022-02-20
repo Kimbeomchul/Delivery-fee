@@ -138,5 +138,20 @@ export default {
         num: 7,
         //
     }),
+    mounted: function() {
+        this.$store.commit("addUserInfo", this.$route.query);
+        // clear query param
+        this.$router.push(this.$route.path).catch((err) => {
+            // Ignore the vuex err regarding  navigating to the page they are already on.
+            if (
+                err.name !== "NavigationDuplicated" &&
+                !err.message.includes("Avoided redundant navigation to current location")
+            ) {
+                // But print any other errors to the console
+                console.log(err);
+            }
+        });
+        // this.$router.replace({ query: null });
+    },
 };
 </script>

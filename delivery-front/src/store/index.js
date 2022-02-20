@@ -18,8 +18,13 @@ export default new Vuex.Store({
             "패스트푸드",
             "야식",
         ],
+        userInfo: "",
     },
-    mutations: {},
+    mutations: {
+        addUserInfo: function(state, payload) {
+            return (state.userInfo = payload);
+        },
+    },
     actions: {},
     modules: {},
 });

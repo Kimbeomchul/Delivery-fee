@@ -192,8 +192,12 @@ def kakao_callback(request):
         # user의 pk, email, first name, last name과 Access Token, Refresh token 가져옴
         print(accept.json())
         accept_json = accept.json()
-        accept_json.pop('user', None)
-        return redirect("http://localhost:8080/list/")
+        # accept_json.pop('user', None)
+        # print(accept_json)
+        access_token = accept_json['access_token']
+        refresh_token = accept_json['access_token']
+        user = accept_json['user']
+        return redirect(f"http://localhost:8080/list/?access_token={access_token}&refresh_token={refresh_token}&user={user}")
         # return JsonResponse(accept_json)
 
 
