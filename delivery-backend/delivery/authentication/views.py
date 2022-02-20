@@ -196,8 +196,8 @@ def kakao_callback(request):
         # print(accept_json)
         access_token = accept_json['access_token']
         refresh_token = accept_json['access_token']
-        user = accept_json['user']
-        return redirect(f"http://localhost:8080/list/?access_token={access_token}&refresh_token={refresh_token}&user={user}")
+        user_id = accept_json['user']['pk']
+        return redirect(f"http://localhost:8080/list/?access_token={access_token}&refresh_token={refresh_token}&user_id={user_id}")
         # return JsonResponse(accept_json)
 
 

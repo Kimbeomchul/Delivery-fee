@@ -125,7 +125,7 @@ export default {
             return this.$store.state.foodTags;
         },
         userInfo() {
-            return this.$store.state.userInfo.user;
+            return this.$store.state.userInfo.user_id;
         },
         OrderTime() {
             const date = dayjs().add(this.timerSlider.val, "minute");
@@ -140,14 +140,17 @@ export default {
                 order_time: this.OrderTime.format(),
                 content: this.content,
                 // HACK: user에 대한 정보를 소셜 로그인 성공 후 vuex에 넣어버려야함. 어케해야돼
-                user: this.userInfo.pk,
+                user: this.userInfo,
             };
+            console.log(typeof this.userInfo);
             console.log(data);
             try {
                 const result = await request("/parties/", "POST", data);
 
                 if (result.status === 200) {
                     console.log("제대로 들어감");
+                } else {
+                    console.log(result);
                 }
             } catch (error) {
                 console.log(error);
