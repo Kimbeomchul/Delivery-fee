@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django.contrib.gis',
     'rest_framework',
     'rest_framework.authtoken',
     'users',
@@ -98,7 +99,7 @@ WSGI_APPLICATION = 'delivery.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': "delivery",
         'USER': "postgres",
         'PASSWORD': "postgres",
