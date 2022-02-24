@@ -1,9 +1,11 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
+    plugins: [createPersistedState()],
     state: {
         kakaoAppkey: "2fe3c5d9478752a4437a5c9910028bc4",
         foodTags: [
