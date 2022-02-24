@@ -26,7 +26,7 @@
                 <div class="font-weight-black" style="color:#52D4DC">
                     종류
                 </div>
-                <v-item-group multiple v-model="selectedTags">
+                <v-item-group multiple max="3" v-model="selectedTags">
                     <v-item
                         v-for="(item, index) in tags"
                         :key="index"
