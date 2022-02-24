@@ -77,7 +77,7 @@
         </div>
         <v-divider class="pb-5"></v-divider>
 
-        <div v-for="i in num" v-bind:key="num + i" class="pt-5 pb-3">
+        <div v-for="(party, index) in parties" v-bind:key="index" class="pt-5 pb-3">
             <v-card
                 router-link
                 :to="{ name: 'detail' }"
@@ -95,20 +95,20 @@
                             src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
                         ></v-img>
                         <div class="pl-4 pt-1 font-weight-black">
-                            10시 35분
+                            {{ datetimeToReadable(party.order_time) }}
                         </div>
                     </v-col>
 
                     <v-col class="text-left">
                         <div class="font-weight-black pt-4 pr-4 text-right" style="font-size:1.2em">
-                            근처파티구해요
+                            {{ party.title }}
                         </div>
 
                         <div
                             class="grey--text font-weight-bold pr-4"
                             style="font-size:0.8em; text-align:right"
                         >
-                            #치킨 #피자 #짜장면
+                            {{ party.tags }}
                         </div>
 
                         <div
@@ -132,29 +132,61 @@
 </template>
 
 <script>
+import request from "@/request";
+import dayjs from "dayjs";
+import "dayjs/locale/ko";
+dayjs.locale("ko");
+
 export default {
     name: "list-component",
     data: () => ({
         num: 7,
+        parties: [],
         //
     }),
     mounted: function() {
-        if (!this.$store.state.userInfo) {
-            this.$store.commit("addUserInfo", this.$route.query);
+        this.addUserInfo();
 
-            // clear query param
-            this.$router.push(this.$route.path).catch((err) => {
-                // Ignore the vuex err regarding  navigating to the page they are already on.
-                if (
-                    err.name !== "NavigationDuplicated" &&
-                    !err.message.includes("Avoided redundant navigation to current location")
-                ) {
-                    // But print any other errors to the console
-                    console.log(err);
+        this.getPartyList();
+    },
+    computed: {},
+    methods: {
+        datetimeToReadable(time) {
+            return dayjs(time).format("HH시 mm분");
+        },
+        addUserInfo() {
+            if (!this.$store.state.userInfo) {
+                this.$store.commit("addUserInfo", this.$route.query);
+
+                // clear query param
+                this.$router.push(this.$route.path).catch((err) => {
+                    // Ignore the vuex err regarding  navigating to the page they are already on.
+                    if (
+                        err.name !== "NavigationDuplicated" &&
+                        !err.message.includes("Avoided redundant navigation to current location")
+                    ) {
+                        // But print any other errors to the console
+                        console.log(err);
+                    }
+                });
+                // this.$router.replace({ query: null });
+            }
+        },
+        getPartyList: async function() {
+            try {
+                const result = await request("/parties", "GET");
+
+                if (result.status === 200) {
+                    this.parties = result.data;
+                    console.log(result.data);
+                    console.log(this.parties);
+                } else {
+                    console.log(result);
                 }
-            });
-            // this.$router.replace({ query: null });
-        }
+            } catch (error) {
+                console.log(error);
+            }
+        },
     },
 };
 </script>
