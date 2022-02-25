@@ -80,7 +80,7 @@
         <div v-for="(party, index) in parties" v-bind:key="index" class="pt-5 pb-3">
             <v-card
                 router-link
-                :to="{ name: 'detail' }"
+                :to="{ name: 'detail', params: { partyId: party.id } }"
                 class="rounded-lg"
                 elevation="2"
                 outline
@@ -144,11 +144,11 @@ export default {
         parties: [],
         //
     }),
-    mounted: function() {
+    created: function() {
         this.addUserInfo();
-
         this.getPartyList();
     },
+    mounted: function() {},
     computed: {},
     methods: {
         datetimeToReadable(time) {
@@ -178,8 +178,6 @@ export default {
 
                 if (result.status === 200) {
                     this.parties = result.data;
-                    console.log(result.data);
-                    console.log(this.parties);
                 } else {
                     console.log(result);
                 }

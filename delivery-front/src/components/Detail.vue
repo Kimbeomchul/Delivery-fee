@@ -2,16 +2,16 @@
     <div>
         <div>
             <v-row>
-                <v-col cols="8" class="text-left">
-                    <div class="font-weight-black pt-4" style="font-size:1.2em">
-                        롯데캐슬 치킨 먹을사람1
+                <v-col cols="8" class="text-right">
+                    <div class="font-weight-black pt-4 pr-4" style="font-size:1.2em">
+                        {{ party.title }}
                     </div>
 
                     <div
                         class="grey--text font-weight-bold pr-4"
                         style="font-size:0.8em; text-align:right"
                     >
-                        #치킨 #피자 #짜장면
+                        {{ party.tags }}
                     </div>
 
                     <div
@@ -36,7 +36,7 @@
                         src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
                     ></v-img>
                     <div class="text-center pt-1 font-weight-black">
-                        10시 35분
+                        {{ datetimeToReadable(party.order_time) }}
                     </div>
                 </v-col>
             </v-row>
@@ -45,11 +45,7 @@
         <div class="pt-1 font-weight-black" style="color:#52D4DC">
             내용
         </div>
-        <v-text-field
-            class="text-center"
-            placeholder="치킨을 시키려구 합니다. 맛나느치킨"
-            value="치킨을 시키려구 합니다. 맛나느치킨"
-        ></v-text-field>
+        <v-text-field class="text-center" readonly :value="party.content"></v-text-field>
 
         <div class="pb-5 pt-1 font-weight-black" style="color:#52D4DC">댓글</div>
         <v-divider class="pb-5"></v-divider>
@@ -86,6 +82,11 @@
 </template>
 
 <script>
+import request from "@/request";
+import dayjs from "dayjs";
+import "dayjs/locale/ko";
+dayjs.locale("ko");
+
 export default {
     name: "detail-component",
     data: () => ({
@@ -96,7 +97,31 @@ export default {
             { title: "Click Me" },
             { title: "Click Me 2" },
         ],
+        party: [],
         //
     }),
+    created: function() {
+        this.getPartyDetail();
+        console.log(this.$route.params.partyId);
+    },
+    mounted: function() {},
+    computed: {},
+    methods: {
+        datetimeToReadable(time) {
+            return dayjs(time).format("HH시 mm분");
+        },
+        getPartyDetail: async function() {
+            try {
+                const result = await request(`/parties/${this.$route.params.partyId}`, "GET");
+                if (result.status === 200) {
+                    this.party = result.data;
+                } else {
+                    console.log(result);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
+    },
 };
 </script>

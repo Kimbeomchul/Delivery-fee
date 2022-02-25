@@ -20,7 +20,7 @@ const routes = [
         component: () => import("../views/ListWrite.vue"),
     },
     {
-        path: "/detail",
+        path: "/detail/:partyId",
         name: "detail",
         component: () => import("../views/Detail.vue"),
     },
