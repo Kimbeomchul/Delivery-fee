@@ -157,5 +157,15 @@ export default {
             this.sheet = !this.sheet;
         },
     },
+    watch: {
+        sheet: function(val) {
+            if (val) {
+                this.title = "";
+                this.content = "";
+                this.selectedTags = "";
+                this.timerSlider.val = 0;
+            }
+        },
+    },
 };
 </script>
