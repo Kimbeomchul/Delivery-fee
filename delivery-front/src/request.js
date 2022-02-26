@@ -17,7 +17,7 @@ const request = async (action, method, data = null) => {
     });
     return {
         status: response.status,
-        data: await response.json(),
+        data: await response.json().catch(() => ({})),
     };
 };
 

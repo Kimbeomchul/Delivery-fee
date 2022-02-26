@@ -47,7 +47,7 @@
                             class="text-h5 font-weight-bold"
                             color="green darken-1"
                             text
-                            @click="dialog = false"
+                            @click="deleteParty()"
                         >
                             참가하기
                         </v-btn>
@@ -85,6 +85,8 @@
 </template>
 
 <script>
+import request from "@/request";
+
 export default {
     name: "appbar-component",
     data: () => ({
@@ -94,16 +96,28 @@ export default {
         items: [{ title: "삭제" }, { title: "수정" }, { title: "나가기" }, { title: "참가하기" }],
     }),
     methods: {
-        deleteParty() {
-            console.log(this.detailComponent);
-            this.deleteDialog = true;
+        deleteParty: async function() {
+            try {
+                const result = await request(`/parties/${this.$route.params.partyId}/`, "DELETE");
+                console.log(result.data);
+                if (result.status === 204) {
+                    console.log(result.data);
+                } else {
+                    console.log(result);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+
+            this.deleteDialog = false;
+            this.$router.go(-1);
         },
         handleItemAction(title) {
             switch (title) {
                 case "수정":
                     break;
                 case "삭제":
-                    this.deleteParty();
+                    this.deleteDialog = true;
                     break;
                 case "나가기":
                     break;

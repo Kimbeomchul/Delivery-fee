@@ -134,7 +134,6 @@ export default {
     name: "list-component",
     data: () => ({
         num: 7,
-        parties: [],
         //
     }),
     created: function() {
@@ -142,7 +141,11 @@ export default {
         this.getPartyList();
     },
     mounted: function() {},
-    computed: {},
+    computed: {
+        parties() {
+            return this.$store.state.parties;
+        },
+    },
     methods: {
         datetimeToReadable(time) {
             return dayjs(time).format("HH시 mm분");
@@ -170,7 +173,7 @@ export default {
                 const result = await request("/parties", "GET");
 
                 if (result.status === 200) {
-                    this.parties = result.data;
+                    this.$store.commit("getPartyList", result.data);
                 } else {
                     console.log(result);
                 }

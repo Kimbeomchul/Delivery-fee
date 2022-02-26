@@ -21,10 +21,14 @@ export default new Vuex.Store({
             "야식",
         ],
         userInfo: "",
+        parties: [],
     },
     mutations: {
         addUserInfo: function(state, payload) {
             return (state.userInfo = payload);
+        },
+        getPartyList: function(state, payload) {
+            return (state.parties = payload);
         },
     },
     actions: {},

@@ -102,7 +102,6 @@ export default {
     }),
     created: function() {
         this.getPartyDetail();
-        console.log(this.$route.params.partyId);
     },
     mounted: function() {},
     computed: {},
@@ -115,18 +114,6 @@ export default {
                 const result = await request(`/parties/${this.$route.params.partyId}`, "GET");
                 if (result.status === 200) {
                     this.party = result.data;
-                } else {
-                    console.log(result);
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        },
-        deleteParty: async function() {
-            try {
-                const result = await request(`/parties/${this.$route.params.partyId}`, "DELETE");
-                if (result.status === 200) {
-                    console.log(result);
                 } else {
                     console.log(result);
                 }
