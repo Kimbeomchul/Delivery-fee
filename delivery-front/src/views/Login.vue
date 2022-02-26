@@ -1,8 +1,8 @@
 <template>
     <v-container class="spacing-playground pa-6 text-center">
-        <v-row style="height:200px;"> </v-row>
+        <v-row style="height: 200px"> </v-row>
         <img src="../assets/logo2.png" alt="logo" />
-        <v-row style="height:40px;"> </v-row>
+        <v-row style="height: 40px"> </v-row>
 
         <v-row class="pr-3">
             <v-col cols="9" xs="6">
@@ -32,7 +32,7 @@
                 <v-btn outlined color="#52D4DC" rounded elevation="1" small>인증확인</v-btn>
             </v-col>
         </v-row>
-        <v-row style="height:40px;"> </v-row>
+        <v-row style="height: 40px"> </v-row>
 
         <v-btn
             @click="signUpGoogle"
@@ -42,7 +42,7 @@
             color="#52D4DC"
             dark
             class="font-weight-bold"
-            style="font-size:1.02em"
+            style="font-size: 1.02em"
         >
             Google로 시작하기
         </v-btn>
@@ -55,7 +55,7 @@
             color="#52D4DC"
             dark
             class="font-weight-bold"
-            style="font-size:1.02em"
+            style="font-size: 1.02em"
         >
             카카오톡으로 시작하기
         </v-btn>
@@ -73,7 +73,7 @@ export default {
         //
     }),
     methods: {
-        signUpGoogle: async function() {
+        signUpGoogle: async function () {
             try {
                 let result = await request("/auth/google/login/", "GET");
 
@@ -89,7 +89,7 @@ export default {
                 console.log(error);
             }
         },
-        signUpKakao: async function() {
+        signUpKakao: async function () {
             try {
                 let result = await request("/auth/kakao/login/", "GET");
 

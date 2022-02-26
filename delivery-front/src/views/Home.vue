@@ -1,12 +1,12 @@
 <template>
     <v-container class="spacing-playground pa-6 text-center">
-        <v-row style="height:200px;"> </v-row>
+        <v-row style="height: 200px"> </v-row>
         <img src="../assets/logo.png" alt="logo" />
-        <v-row style="height:180px;"> </v-row>
+        <v-row style="height: 180px"> </v-row>
         <v-btn router-link :to="{ name: 'login' }" block x-large rounded color="#52D4DC" dark>
             휴대폰으로 로그인
         </v-btn>
-        <v-row style="height:40px;"> </v-row>
+        <v-row style="height: 40px"> </v-row>
 
         <div class="grey--text text-caption mb-2">
             로그인시 배공파용의 서비스 약관,<br />

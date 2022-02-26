@@ -3,32 +3,23 @@
         <div>
             <v-row>
                 <v-col cols="8" class="text-right">
-                    <div class="font-weight-black pt-4 pr-4" style="font-size:1.2em">
+                    <div class="font-weight-black pt-4 pr-4" style="font-size: 1.2em">
                         {{ party.title }}
                     </div>
 
-                    <div
-                        class="grey--text font-weight-bold pr-4"
-                        style="font-size:0.8em; text-align:right"
-                    >
+                    <div class="grey--text font-weight-bold pr-4" style="font-size: 0.8em; text-align: right">
                         {{ party.tags }}
                     </div>
 
-                    <div
-                        class="grey--text font-weight-bold pr-4"
-                        style="font-size:0.8em; text-align:right"
-                    >
+                    <div class="grey--text font-weight-bold pr-4" style="font-size: 0.8em; text-align: right">
                         제주도 제주시 해안동
                     </div>
 
-                    <div
-                        class="grey--text font-weight-medium pr-4"
-                        style="font-size:0.8em; text-align:right"
-                    >
+                    <div class="grey--text font-weight-medium pr-4" style="font-size: 0.8em; text-align: right">
                         108m
                     </div>
                 </v-col>
-                <v-col cols="4" class="pt-4 ">
+                <v-col cols="4" class="pt-4">
                     <v-img
                         class="rounded-lg"
                         width="100"
@@ -42,12 +33,10 @@
             </v-row>
         </div>
 
-        <div class="pt-1 font-weight-black" style="color:#52D4DC">
-            내용
-        </div>
+        <div class="pt-1 font-weight-black" style="color: #52d4dc">내용</div>
         <v-text-field class="text-center" readonly :value="party.content"></v-text-field>
 
-        <div class="pb-5 pt-1 font-weight-black" style="color:#52D4DC">댓글</div>
+        <div class="pb-5 pt-1 font-weight-black" style="color: #52d4dc">댓글</div>
         <v-divider class="pb-5"></v-divider>
 
         <div class="pb-3 pl-3 pr-3" v-for="i in num" v-bind:key="num + i">
@@ -74,9 +63,7 @@
                     </v-menu>
                 </v-col>
             </v-row>
-            <div class=" pb-2 pl-5 pr-5 text-body-2">
-                오늘 관악산 다녀왔는데 정상에서먹은 내이름은 정상수~
-            </div>
+            <div class="pb-2 pl-5 pr-5 text-body-2">오늘 관악산 다녀왔는데 정상에서먹은 내이름은 정상수~</div>
         </div>
     </div>
 </template>
@@ -91,25 +78,20 @@ export default {
     name: "detail-component",
     data: () => ({
         num: 7,
-        items: [
-            { title: "Click Me" },
-            { title: "Click Me" },
-            { title: "Click Me" },
-            { title: "Click Me 2" },
-        ],
+        items: [{ title: "Click Me" }, { title: "Click Me" }, { title: "Click Me" }, { title: "Click Me 2" }],
         party: [],
         //
     }),
-    created: function() {
+    created: function () {
         this.getPartyDetail();
     },
-    mounted: function() {},
+    mounted: function () {},
     computed: {},
     methods: {
         datetimeToReadable(time) {
             return dayjs(time).format("HH시 mm분");
         },
-        getPartyDetail: async function() {
+        getPartyDetail: async function () {
             try {
                 const result = await request(`/parties/${this.$route.params.partyId}`, "GET");
                 if (result.status === 200) {
