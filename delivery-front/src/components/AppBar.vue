@@ -1,6 +1,6 @@
 <template>
     <v-app-bar
-        v-if="$route.name !== 'list' && $route.name !== 'home'"
+        v-if="$route.name === 'detail' || $route.name === 'map'"
         elevation="0"
         color="white"
         dense
@@ -11,7 +11,7 @@
         <v-toolbar-title>배공파용</v-toolbar-title>
 
         <v-spacer></v-spacer>
-        <v-menu bottom left>
+        <v-menu bottom left v-if="$route.name === 'detail'">
             <template v-slot:activator="{ on, attrs }">
                 <v-btn icon v-bind="attrs" v-on="on">
                     <v-icon>mdi-dots-vertical</v-icon>
@@ -101,16 +101,14 @@ export default {
                 const result = await request(`/parties/${this.$route.params.partyId}/`, "DELETE");
                 console.log(result.data);
                 if (result.status === 204) {
-                    console.log(result.data);
+                    this.deleteDialog = false;
+                    this.$router.go(-1);
                 } else {
-                    console.log(result);
+                    this.deleteDialog = false;
                 }
             } catch (error) {
                 console.log(error);
             }
-
-            this.deleteDialog = false;
-            this.$router.go(-1);
         },
         handleItemAction(title) {
             switch (title) {

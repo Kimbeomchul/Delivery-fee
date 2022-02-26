@@ -38,10 +38,12 @@ services:
 
     vue:
         container_name: vue
+        image: vue
         build:
             context: ./delivery-front
             dockerfile: Dockerfile
-        image: vue
+        environment:
+            - CHOKIDAR_USEPOLLING=true
         volumes:
             - ./delivery-front:/delivery-front/
         working_dir: /delivery-front/
