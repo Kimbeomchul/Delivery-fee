@@ -30,6 +30,9 @@ export default new Vuex.Store({
         getPartyList: function(state, payload) {
             return (state.parties = payload);
         },
+        pushParty: function(state, payload) {
+            return state.parties.push(payload);
+        },
     },
     actions: {},
     modules: {},

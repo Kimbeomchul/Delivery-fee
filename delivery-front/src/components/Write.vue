@@ -142,13 +142,11 @@ export default {
                 // HACK: user에 대한 정보를 소셜 로그인 성공 후 vuex에 넣어버려야함. 어케해야돼
                 user: this.userInfo,
             };
-            console.log(typeof this.userInfo);
-            console.log(data);
             try {
                 const result = await request("/parties/", "POST", data);
 
-                if (result.status === 200) {
-                    console.log("제대로 들어감");
+                if (result.status === 201) {
+                    this.$store.commit("pushParty", result.data);
                 } else {
                     console.log(result);
                 }
@@ -156,10 +154,6 @@ export default {
                 console.log(error);
             }
 
-            // console.log(this.title);
-            // console.log(this.content);
-            // console.log(this.selectedTags);
-            // console.log(this.OrderTime.format());
             this.sheet = !this.sheet;
         },
     },
