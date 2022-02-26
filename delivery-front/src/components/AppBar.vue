@@ -1,4 +1,3 @@
-<!-- HACK: 아직까지 컴포넌트로 뺴야할지 말지 고민중 -->
 <template>
     <v-app-bar
         v-if="$route.name !== 'list' && $route.name !== 'home'"
