@@ -12,16 +12,28 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from datetime import timedelta
 from pathlib import Path
+import os
+from django.core.exceptions import ImproperlyConfigured
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+def get_env_variable(var_name):
+    """환경 변수를 가져오거나 예외를 반환한다."""
+    try:
+        return os.environ[var_name]
+    except KeyError:
+        error_msg = f"Set the {var_name} environment variable"
+        raise ImproperlyConfigured(error_msg)
+    
+    
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-g62j+skjaxq9r6u(0(z0snt08=&y&$6*9j71&()xk**)dxgl3@'
+SECRET_KEY = get_env_variable("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -101,10 +113,10 @@ WSGI_APPLICATION = 'delivery.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': "delivery",
-        'USER': "postgres",
-        'PASSWORD': "postgres",
-        'HOST': "127.0.0.1",
+        'NAME': get_env_variable("POSTGRES_DB"),
+        'USER': get_env_variable("POSTGRES_USER"),
+        'PASSWORD': get_env_variable("POSTGRES_PASSWORD"),
+        'HOST': get_env_variable("POSTGRES_HOST"),
         'PORT': '5432',
     }
 }
@@ -147,6 +159,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 # Default primary key field type

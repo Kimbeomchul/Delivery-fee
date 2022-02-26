@@ -1,0 +1,50 @@
+version: "3"
+
+volumes:
+    postgres_db_dev: {}
+
+services:
+    postgres:
+        container_name: postgres
+        image: postgis/postgis:14-3.2-alpine
+        volumes:
+            - postgres_db_dev:/var/lib/postgresql/data
+        env_file:
+            - ./docker-compose.env
+        ports:
+            - "5432:5432"
+
+    django:
+        container_name: django
+        hostname: yjk
+        image: django
+        build:
+            context: ./delivery-backend
+            dockerfile: Dockerfile
+        env_file:
+            - ./docker-compose.env
+        volumes:
+            - ./delivery-backend:/delivery-backend/
+        working_dir: /delivery-backend/delivery/
+        command: >
+            bash -c "
+            chmod +x /wait-for-it.sh
+            && /wait-for-it.sh postgres:5432 -t 0
+            && python3 manage.py migrate
+            && python3 manage.py collectstatic --noinput
+            && python3 manage.py runserver 0.0.0.0:8000 "
+        ports:
+            - "8000:8000"
+
+    vue:
+        container_name: vue
+        build:
+            context: ./delivery-front
+            dockerfile: Dockerfile
+        image: vue
+        volumes:
+            - ./delivery-front:/delivery-front/
+        working_dir: /delivery-front/
+        command: "npm run serve"
+        ports:
+            - "8080:8080"
