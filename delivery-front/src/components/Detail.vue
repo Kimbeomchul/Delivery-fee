@@ -122,6 +122,18 @@ export default {
                 console.log(error);
             }
         },
+        deleteParty: async function() {
+            try {
+                const result = await request(`/parties/${this.$route.params.partyId}`, "DELETE");
+                if (result.status === 200) {
+                    console.log(result);
+                } else {
+                    console.log(result);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
     },
 };
 </script>

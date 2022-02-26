@@ -21,14 +21,7 @@
         <v-divider class="pb-5"></v-divider>
 
         <div class="pt-5 pb-3">
-            <v-card
-                router-link
-                :to="{ name: 'detail' }"
-                class="rounded-lg"
-                elevation="2"
-                outline
-                height="150"
-            >
+            <v-card class="rounded-lg" elevation="2" outline height="150">
                 <v-row>
                     <v-col class="pt-4 pl-8">
                         <v-img
