@@ -79,7 +79,7 @@
                         </div>
 
                         <div class="grey--text font-weight-bold pr-4" style="font-size: 0.8em; text-align: right">
-                            {{ party.tags }}
+                            {{ tagsToReadable(party.tags) }}
                         </div>
 
                         <div class="grey--text font-weight-bold pr-4 pt-3" style="font-size: 0.8em; text-align: right">
@@ -119,6 +119,9 @@ export default {
         },
     },
     methods: {
+        tagsToReadable(tags) {
+            return "#" + tags.join(" #");
+        },
         datetimeToReadable(time) {
             return dayjs(time).format("HH시 mm분");
         },
