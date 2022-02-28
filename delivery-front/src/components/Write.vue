@@ -154,7 +154,6 @@ export default {
                 console.log(result.status);
 
                 if (result.status === 200) {
-                    // this.$store.commit("pushToParties", result.data);
                     this.$router.go(-1);
                 } else {
                     console.log(result);
