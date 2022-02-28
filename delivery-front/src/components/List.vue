@@ -13,7 +13,7 @@
             <div class="black--text font-weight-black" style="font-size: 1.2em">경기도 과천시</div>
         </v-btn>
 
-        <div class="black--text font-weight-black pt-10 pb-2" style="font-size: 1.2em">참여중</div>
+        <div class="black--text font-weight-black pt-6 pb-2" style="font-size: 1.2em">참여중</div>
         <v-divider class="pb-5"></v-divider>
 
         <div class="pt-5 pb-3">
