@@ -142,7 +142,7 @@ export default {
         },
         getPartyList: async function () {
             try {
-                const result = await request("/parties", "GET");
+                const result = await request("/parties/", "GET");
 
                 if (result.status === 200) {
                     this.$store.commit("changeParties", result.data);

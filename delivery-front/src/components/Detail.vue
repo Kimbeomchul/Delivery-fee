@@ -96,7 +96,7 @@ export default {
         },
         getPartyDetail: async function () {
             try {
-                const result = await request(`/parties/${this.$route.params.partyId}`, "GET");
+                const result = await request(`/parties/${this.$route.params.partyId}/`, "GET");
                 if (result.status === 200) {
                     this.$store.commit("changeParty", result.data);
                 } else {
