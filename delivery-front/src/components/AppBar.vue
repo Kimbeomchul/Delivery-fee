@@ -1,6 +1,6 @@
 <template>
     <v-app-bar
-        v-if="$route.name === 'detail' || $route.name === 'map'"
+        v-if="$route.name === 'detail' || $route.name === 'map' || $route.name === 'write'"
         elevation="0"
         color="white"
         dense
@@ -30,7 +30,7 @@
                     <v-divider></v-divider>
 
                     <v-card-actions>
-                        <v-btn class="text-h5" color="#52D4DC" text @click="dialog = false"> 아니요 </v-btn>
+                        <v-btn class="text-h5" color="#52D4DC" text @click="deleteDialog = false"> 아니요 </v-btn>
                         <v-spacer></v-spacer>
                         <v-btn
                             class="text-h5 font-weight-bold"
@@ -39,6 +39,23 @@
                             @click="deleteParty($route.params.partyId)"
                         >
                             삭제하기
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+            <v-dialog v-model="editDialog" max-width="300">
+                <v-card>
+                    <v-card-title class="text-body2"> 파티를 수정하시겠습니까? </v-card-title>
+                    <v-card-text class="text-caption">
+                        주문하고 싶은 시간은 현재시간 이후로만 설정할 수 있습니다.
+                    </v-card-text>
+                    <v-divider></v-divider>
+
+                    <v-card-actions>
+                        <v-btn class="text-h5" color="green darken-1" text @click="editDialog = false"> 아니요 </v-btn>
+                        <v-spacer></v-spacer>
+                        <v-btn class="text-h5 font-weight-bold" color="green darken-1" text @click="goWrite()">
+                            수정하기
                         </v-btn>
                     </v-card-actions>
                 </v-card>
@@ -70,6 +87,7 @@ export default {
     data: () => ({
         loading: false,
         deleteDialog: false,
+        editDialog: false,
         dialog: false,
         items: [{ title: "삭제" }, { title: "수정" }, { title: "나가기" }, { title: "참가하기" }],
     }),
@@ -87,9 +105,14 @@ export default {
                 console.log(error);
             }
         },
+        goWrite() {
+            this.$router.push({ name: "write", query: { edit: true } });
+            this.editDialog = false;
+        },
         handleItemAction(title) {
             switch (title) {
                 case "수정":
+                    this.editDialog = true;
                     break;
                 case "삭제":
                     this.deleteDialog = true;

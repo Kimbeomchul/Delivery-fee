@@ -79,14 +79,17 @@ export default {
     data: () => ({
         num: 7,
         items: [{ title: "Click Me" }, { title: "Click Me" }, { title: "Click Me" }, { title: "Click Me 2" }],
-        party: [],
         //
     }),
     created: function () {
         this.getPartyDetail();
     },
     mounted: function () {},
-    computed: {},
+    computed: {
+        party() {
+            return this.$store.state.party;
+        },
+    },
     methods: {
         datetimeToReadable(time) {
             return dayjs(time).format("HH시 mm분");
@@ -95,7 +98,7 @@ export default {
             try {
                 const result = await request(`/parties/${this.$route.params.partyId}`, "GET");
                 if (result.status === 200) {
-                    this.party = result.data;
+                    this.$store.commit("changeParty", result.data);
                 } else {
                     console.log(result);
                 }

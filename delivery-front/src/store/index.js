@@ -11,16 +11,20 @@ export default new Vuex.Store({
         foodTags: ["한식", "분식", "카페", "일식", "양식", "치킨", "피자", "중국집", "패스트푸드", "야식"],
         userInfo: "",
         parties: [],
+        party: [],
     },
     mutations: {
         addUserInfo: function (state, payload) {
             return (state.userInfo = payload);
         },
-        getPartyList: function (state, payload) {
+        changeParties: function (state, payload) {
             return (state.parties = payload);
         },
-        pushParty: function (state, payload) {
+        pushToParties: function (state, payload) {
             return state.parties.push(payload);
+        },
+        changeParty: function (state, payload) {
+            return (state.party = payload);
         },
     },
     actions: {},

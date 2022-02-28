@@ -145,7 +145,7 @@ export default {
                 const result = await request("/parties", "GET");
 
                 if (result.status === 200) {
-                    this.$store.commit("getPartyList", result.data);
+                    this.$store.commit("changeParties", result.data);
                 } else {
                     console.log(result);
                 }
