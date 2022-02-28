@@ -89,6 +89,7 @@ export default {
         content: "",
         selectedTags: "",
         timerSlider: { val: 0, color: "#52D4DC" },
+        editTimerSlider: { val: 0, color: "#52D4DC" },
     }),
     created: function () {
         this.allowEditParty();
@@ -102,8 +103,8 @@ export default {
             return this.$store.state.userInfo.user_id;
         },
         orderTime() {
-            if (this.isBefore) {
-                return dayjs(this.party.order_time);
+            if (this.isBefore && this.isEdit) {
+                return dayjs(this.party.order_time).add(this.timerSlider.val - this.editTimerSlider.val, "minute");
             } else {
                 return dayjs().add(this.timerSlider.val, "minute");
             }
@@ -114,6 +115,9 @@ export default {
         isBefore() {
             return !dayjs().isAfter(this.party.order_time);
         },
+        isEdit() {
+            return this.$route.query.edit;
+        },
     },
     methods: {
         createParty: async function () {
@@ -122,7 +126,6 @@ export default {
                 tags: this.selectedTags,
                 order_time: this.orderTime.format(),
                 content: this.content,
-                // HACK: user에 대한 정보를 소셜 로그인 성공 후 vuex에 넣어버려야함. 어케해야돼
                 user: this.userInfo,
             };
             try {
@@ -161,13 +164,15 @@ export default {
             }
         },
         allowEditParty: function () {
-            if (this.$route.query.edit) {
+            if (this.isEdit) {
                 this.title = this.party.title;
                 this.content = this.party.content;
                 this.selectedTags = this.party.tags;
                 const nowDate = dayjs();
                 if (this.isBefore) {
-                    this.timerSlider.val = Math.abs(nowDate.diff(this.party.order_time, "minute"));
+                    const diffMinuteAbs = Math.abs(nowDate.diff(this.party.order_time, "minute"));
+                    this.editTimerSlider.val = diffMinuteAbs;
+                    this.timerSlider.val = diffMinuteAbs;
                 }
             }
         },
