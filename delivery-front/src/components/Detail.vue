@@ -109,6 +109,18 @@ export default {
                 console.log(error);
             }
         },
+        getCommentList: async function () {
+            // try {
+            //     const result = await request(`/comments/${this.$route.params.partyId}/`, "GET");
+            //     if (result.status === 200) {
+            //         this.$store.commit("changeParty", result.data);
+            //     } else {
+            //         console.log(result);
+            //     }
+            // } catch (error) {
+            //     console.log(error);
+            // }
+        },
     },
 };
 </script>

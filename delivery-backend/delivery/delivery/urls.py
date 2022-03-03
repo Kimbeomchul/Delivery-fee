@@ -16,20 +16,23 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from rest_framework.routers import DefaultRouter
+from rest_framework_nested.routers import DefaultRouter, NestedDefaultRouter
 
 from comments.views import CommentViewSet
 from parties.views import PartyViewSet
 
-router = DefaultRouter()
-router.register('comments', CommentViewSet)
-router.register('parties', PartyViewSet)
+root_router = DefaultRouter()
+root_router.register('parties', PartyViewSet)
+
+comments_router = NestedDefaultRouter(root_router, 'parties', lookup='party')
+comments_router.register('comments', CommentViewSet)
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
-    path('api/v1/', include(router.urls)),
+    path('api/v1/', include(root_router.urls)),
+    path('api/v1/', include(comments_router.urls)),
     path('api/v1/auth/', include('authentication.urls')),
     path('api/v1/auth/', include('dj_rest_auth.urls')),
     path('api/v1/auth/', include('allauth.urls')),
