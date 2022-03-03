@@ -51,7 +51,7 @@
         <div class="black--text font-weight-black pt-5 pb-2" style="font-size: 1.2em">대기중</div>
         <v-divider class="pb-5"></v-divider>
 
-        <div v-for="(party, index) in parties" v-bind:key="index" class="pt-5 pb-3">
+        <div v-for="(party, index) in parties" :key="index" class="pt-5 pb-3">
             <v-card
                 router-link
                 :to="{ name: 'detail', params: { partyId: party.id } }"

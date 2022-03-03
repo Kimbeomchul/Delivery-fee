@@ -1,7 +1,7 @@
 <template>
     <v-flex xs12 sm6 md3>
         <v-text-field label="댓글을 입력해주세요." type="text" hide-details outlined dense v-model="message">
-            <template v-slot:append>
+            <template #append>
                 <v-fade-transition leave-absolute>
                     <v-progress-circular v-if="loading" size="24" color="info" indeterminate></v-progress-circular>
                     <img v-else width="24" height="24" src="../assets/btn.png" alt="btn" />

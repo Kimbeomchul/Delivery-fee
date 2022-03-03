@@ -39,17 +39,17 @@
         <div class="pb-5 pt-1 font-weight-black" style="color: #52d4dc">댓글</div>
         <v-divider class="pb-5"></v-divider>
 
-        <div class="pb-3 pl-3 pr-3" v-for="i in num" v-bind:key="num + i">
+        <div class="pb-3 pl-3 pr-3" v-for="(comment, index) in comments" :key="index">
             <v-row>
                 <v-col cols="10">
                     <div class="font-weight-black text-body-2">
-                        거친 삑삑도요
+                        {{ comment.user }} -> 임시로 유저 아이디
                         <span class="text-caption">· 43분전 </span>
                     </div>
                 </v-col>
                 <v-col cols="2">
                     <v-menu bottom left>
-                        <template v-slot:activator="{ on, attrs }">
+                        <template #activator="{ on, attrs }">
                             <v-btn icon v-bind="attrs" v-on="on">
                                 <v-icon small>mdi-dots-vertical</v-icon>
                             </v-btn>
@@ -63,7 +63,7 @@
                     </v-menu>
                 </v-col>
             </v-row>
-            <div class="pb-2 pl-5 pr-5 text-body-2">오늘 관악산 다녀왔는데 정상에서먹은 내이름은 정상수~</div>
+            <div class="pb-2 pl-5 pr-5 text-body-2">{{ comment.content }}</div>
         </div>
     </div>
 </template>
@@ -79,10 +79,12 @@ export default {
     data: () => ({
         num: 7,
         items: [{ title: "Click Me" }, { title: "Click Me" }, { title: "Click Me" }, { title: "Click Me 2" }],
+        comments: [],
         //
     }),
     created: function () {
         this.getPartyDetail();
+        this.getCommentList();
     },
     mounted: function () {},
     computed: {
@@ -110,16 +112,17 @@ export default {
             }
         },
         getCommentList: async function () {
-            // try {
-            //     const result = await request(`/comments/${this.$route.params.partyId}/`, "GET");
-            //     if (result.status === 200) {
-            //         this.$store.commit("changeParty", result.data);
-            //     } else {
-            //         console.log(result);
-            //     }
-            // } catch (error) {
-            //     console.log(error);
-            // }
+            try {
+                const result = await request(`/parties/${this.$route.params.partyId}/comments/`, "GET");
+                if (result.status === 200) {
+                    this.comments = result.data;
+                    console.log(this.comments);
+                } else {
+                    console.log(result);
+                }
+            } catch (error) {
+                console.log(error);
+            }
         },
     },
 };
