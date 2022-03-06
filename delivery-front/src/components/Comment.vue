@@ -1,10 +1,12 @@
 <template>
     <v-flex xs12 sm6 md3>
-        <v-text-field label="댓글을 입력해주세요." type="text" hide-details outlined dense v-model="message">
+        <v-text-field label="댓글을 입력해주세요." type="text" hide-details outlined dense v-model="comment">
             <template #append>
                 <v-fade-transition leave-absolute>
-                    <v-progress-circular v-if="loading" size="24" color="info" indeterminate></v-progress-circular>
-                    <img v-else width="24" height="24" src="../assets/btn.png" alt="btn" />
+                    <v-progress-circular v-if="loading" size="24" color="info" indeterminate> </v-progress-circular>
+                    <v-btn class="pt-1" v-else icon x-small elevation="0" @click="postComment"
+                        ><img width="24" height="24" src="@/assets/btn.png" alt="btn" />
+                    </v-btn>
                 </v-fade-transition>
             </template>
         </v-text-field>
@@ -12,15 +14,44 @@
 </template>
 
 <script>
+import request from "@/request";
+
 export default {
     name: "comment-component",
 
     data: () => ({
-        message: "",
+        comment: "",
         loading: false,
         dialog: false,
         //
     }),
+    created: function () {},
+    mounted: function () {},
+    computed: {
+        userId() {
+            return this.$store.state.userInfo.user_id;
+        },
+    },
+    methods: {
+        postComment: async function () {
+            const data = {
+                content: this.comment,
+                party: this.$route.params.partyId,
+                user: this.userId,
+            };
+            try {
+                const result = await request(`/parties/${this.$route.params.partyId}/comments/`, "POST", data);
+
+                if (result.status == 201) {
+                    console.log("asdfasdf");
+                } else {
+                    console.log(result);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
+    },
 };
 </script>
 

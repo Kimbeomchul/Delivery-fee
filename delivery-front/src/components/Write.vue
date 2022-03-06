@@ -99,8 +99,8 @@ export default {
         tags() {
             return this.$store.state.foodTags;
         },
-        userInfo() {
-            return this.$store.state.userInfo.user_id;
+        userId() {
+            return this.$store.state.userId.user_id;
         },
         orderTime() {
             if (this.isBefore && this.isEdit) {
@@ -126,7 +126,7 @@ export default {
                 tags: this.selectedTags,
                 order_time: this.orderTime.format(),
                 content: this.content,
-                user: this.userInfo,
+                user: this.userId,
             };
             try {
                 const result = await request("/parties/", "POST", data);
