@@ -43,7 +43,8 @@ export default {
                 const result = await request(`/parties/${this.$route.params.partyId}/comments/`, "POST", data);
 
                 if (result.status == 201) {
-                    console.log("asdfasdf");
+                    this.$store.dispatch("pushToComments", result.data);
+                    this.comment = "";
                 } else {
                     console.log(result);
                 }

@@ -79,7 +79,6 @@ export default {
     data: () => ({
         num: 7,
         items: [{ title: "Click Me" }, { title: "Click Me" }, { title: "Click Me" }, { title: "Click Me 2" }],
-        comments: [],
         //
     }),
     created: function () {
@@ -90,6 +89,9 @@ export default {
     computed: {
         party() {
             return this.$store.state.party;
+        },
+        comments() {
+            return this.$store.state.comments;
         },
     },
     methods: {
@@ -115,8 +117,7 @@ export default {
             try {
                 const result = await request(`/parties/${this.$route.params.partyId}/comments/`, "GET");
                 if (result.status === 200) {
-                    this.comments = result.data;
-                    console.log(this.comments);
+                    this.$store.dispatch("changeComments", result.data);
                 } else {
                     console.log(result);
                 }

@@ -12,6 +12,7 @@ export default new Vuex.Store({
         userInfo: "",
         parties: [],
         party: [],
+        comments: [],
     },
     mutations: {
         addUserInfo: function (state, payload) {
@@ -26,6 +27,12 @@ export default new Vuex.Store({
         changeParty: function (state, payload) {
             return (state.party = payload);
         },
+        changeComments: function (state, payload) {
+            return (state.comments = payload);
+        },
+        pushToComments: function (state, payload) {
+            return state.comments.push(payload);
+        },
     },
     actions: {
         addUserInfo: function (context, payload) {
@@ -39,6 +46,12 @@ export default new Vuex.Store({
         },
         changeParty: function (context, payload) {
             return context.commit("changeParty", payload);
+        },
+        changeComments: function (context, payload) {
+            return context.commit("changeComments", payload);
+        },
+        pushToComments: function (context, payload) {
+            return context.commit("pushToComments", payload);
         },
     },
     modules: {},
