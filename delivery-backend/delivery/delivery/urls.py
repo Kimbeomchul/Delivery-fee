@@ -19,10 +19,11 @@ from django.urls import path, include
 from rest_framework_nested.routers import DefaultRouter, NestedDefaultRouter
 
 from comments.views import CommentViewSet
-from parties.views import PartyViewSet
+from parties.views import PartyViewSet, ParticipantViewSet
 
 root_router = DefaultRouter()
 root_router.register('parties', PartyViewSet)
+root_router.register('participants', ParticipantViewSet)
 
 comments_router = NestedDefaultRouter(root_router, 'parties', lookup='party')
 comments_router.register('comments', CommentViewSet)
@@ -35,6 +36,5 @@ urlpatterns = [
     path('api/v1/', include(comments_router.urls)),
     path('api/v1/auth/', include('authentication.urls')),
     path('api/v1/auth/', include('dj_rest_auth.urls')),
-    path('api/v1/auth/', include('allauth.urls')),
-    
+    path('api/v1/auth/', include('allauth.urls')),   
 ]
