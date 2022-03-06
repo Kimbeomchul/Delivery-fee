@@ -13,4 +13,8 @@ class Party(Timestampable):
     order_time = models.DateTimeField()
     content = models.TextField(help_text='파티 내용')
     user = models.ForeignKey(User, on_delete=models.CASCADE, help_text='파티 주최자')
-    participants = ArrayField(models.IntegerField(), default=list, help_text='파티 참여자 명단')
+
+
+class Participant(Timestampable):
+    party = models.ForeignKey(Party, on_delete=models.CASCADE, help_text='참가한 파티')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, help_text='참가한 유저')
