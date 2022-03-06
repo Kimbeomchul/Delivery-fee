@@ -18,6 +18,9 @@ export default new Vuex.Store({
         addUserInfo: function (state, payload) {
             return (state.userInfo = payload);
         },
+        pushParticipationStatus: function (state, payload) {
+            return (state.userInfo.participated = payload);
+        },
         changeParties: function (state, payload) {
             return (state.parties = payload);
         },
@@ -40,6 +43,9 @@ export default new Vuex.Store({
     actions: {
         addUserInfo: function (context, payload) {
             return context.commit("addUserInfo", payload);
+        },
+        pushParticipationStatus: function (context, payload) {
+            return context.commit("pushParticipationStatus", payload);
         },
         changeParties: function (context, payload) {
             return context.commit("changeParties", payload);

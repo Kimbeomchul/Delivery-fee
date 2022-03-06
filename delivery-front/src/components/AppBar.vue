@@ -69,7 +69,12 @@
                     <v-card-actions>
                         <v-btn class="text-h5" color="#52D4DC" text @click="enterDialog = false"> 아니요 </v-btn>
                         <v-spacer></v-spacer>
-                        <v-btn class="text-h5 font-weight-bold" color="#52D4DC" text @click="enterParty()">
+                        <v-btn
+                            class="text-h5 font-weight-bold"
+                            color="#52D4DC"
+                            text
+                            @click="enterParty($route.params.partyId)"
+                        >
                             참가하기
                         </v-btn>
                     </v-card-actions>
@@ -91,6 +96,11 @@ export default {
         enterDialog: false,
         items: [{ title: "삭제" }, { title: "수정" }, { title: "나가기" }, { title: "참가하기" }],
     }),
+    computed: {
+        userId() {
+            return this.$store.state.userInfo.user_id;
+        },
+    },
     methods: {
         deleteParty: async function (partyId) {
             try {
@@ -105,7 +115,23 @@ export default {
                 console.log(error);
             }
         },
-        enterParty: async function () {
+        enterParty: async function (partyId) {
+            const data = {
+                party: partyId,
+                user: this.userId,
+            };
+            try {
+                const result = await request("/participants/", "POST", data);
+                if (result.status === 201) {
+                    this.$store.dispatch("pushParticipationStatus", partyId);
+                    this.enterDialog = false;
+                } else {
+                    console.log(result);
+                    this.enterDialog = false;
+                }
+            } catch (error) {
+                console.log(error);
+            }
             this.enterDialog = false;
         },
         goWrite() {
@@ -123,7 +149,6 @@ export default {
                 case "나가기":
                     break;
                 case "참가하기":
-                    console.log("asdf");
                     this.enterDialog = true;
                     break;
             }
