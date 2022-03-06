@@ -155,7 +155,7 @@ export default {
         },
         getPartyDetail: async function () {
             try {
-                const result = await request(`/parties/${this.party.id}/`, "GET");
+                const result = await request(`/parties/${this.$route.params.partyId}/`, "GET");
                 if (result.status === 200) {
                     this.$store.dispatch("changeParty", result.data);
                 } else {
@@ -167,7 +167,7 @@ export default {
         },
         getCommentList: async function () {
             try {
-                const result = await request(`/parties/${this.party.id}/comments/`, "GET");
+                const result = await request(`/parties/${this.$route.params.partyId}/comments/`, "GET");
                 if (result.status === 200) {
                     this.$store.dispatch("changeComments", result.data);
                 } else {
@@ -190,7 +190,7 @@ export default {
         deleteCommeent: async function (commentId, commentIndex) {
             console.log(commentIndex);
             try {
-                const result = await request(`/parties/${this.party.id}/comments/${commentId}/`, "DELETE");
+                const result = await request(`/parties/${this.$route.params.partyId}/comments/${commentId}/`, "DELETE");
                 if (result.status === 204) {
                     this.deleteDialog = false;
                     this.$store.dispatch("popToComments", commentIndex);

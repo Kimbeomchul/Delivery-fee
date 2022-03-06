@@ -60,16 +60,16 @@
                     </v-card-actions>
                 </v-card>
             </v-dialog>
-            <v-dialog v-model="dialog" max-width="300">
+            <v-dialog v-model="enterDialog" max-width="300">
                 <v-card>
                     <v-card-title class="text-body2"> "근처 파티구해요"에 참가하시겠습니까? </v-card-title>
                     <v-card-text class="text-caption"> 참가를 진행할 경우 나가기 전까지 유지됩니다. </v-card-text>
                     <v-divider></v-divider>
 
                     <v-card-actions>
-                        <v-btn class="text-h5" color="green darken-1" text @click="dialog = false"> 아니요 </v-btn>
+                        <v-btn class="text-h5" color="#52D4DC" text @click="enterDialog = false"> 아니요 </v-btn>
                         <v-spacer></v-spacer>
-                        <v-btn class="text-h5 font-weight-bold" color="green darken-1" text @click="dialog = false">
+                        <v-btn class="text-h5 font-weight-bold" color="#52D4DC" text @click="enterParty()">
                             참가하기
                         </v-btn>
                     </v-card-actions>
@@ -88,7 +88,7 @@ export default {
         loading: false,
         deleteDialog: false,
         editDialog: false,
-        dialog: false,
+        enterDialog: false,
         items: [{ title: "삭제" }, { title: "수정" }, { title: "나가기" }, { title: "참가하기" }],
     }),
     methods: {
@@ -105,6 +105,9 @@ export default {
                 console.log(error);
             }
         },
+        enterParty: async function () {
+            this.enterDialog = false;
+        },
         goWrite() {
             this.$router.push({ name: "write", query: { edit: true } });
             this.editDialog = false;
@@ -119,7 +122,9 @@ export default {
                     break;
                 case "나가기":
                     break;
-                case "참여하기":
+                case "참가하기":
+                    console.log("asdf");
+                    this.enterDialog = true;
                     break;
             }
         },
