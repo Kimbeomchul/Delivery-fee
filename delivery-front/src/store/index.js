@@ -33,6 +33,9 @@ export default new Vuex.Store({
         pushToComments: function (state, payload) {
             return state.comments.push(payload);
         },
+        popToComments: function (state, payload) {
+            return state.comments.splice(payload, 1);
+        },
     },
     actions: {
         addUserInfo: function (context, payload) {
@@ -52,6 +55,9 @@ export default new Vuex.Store({
         },
         pushToComments: function (context, payload) {
             return context.commit("pushToComments", payload);
+        },
+        popToComments: function (context, payload) {
+            return context.commit("popToComments", payload);
         },
     },
     modules: {},

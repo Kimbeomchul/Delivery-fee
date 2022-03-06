@@ -48,7 +48,7 @@
                     </div>
                 </v-col>
                 <v-col cols="2">
-                    <v-menu bottom left>
+                    <v-menu bottom left v-if="userId == comment.user">
                         <template #activator="{ on, attrs }">
                             <v-btn icon v-bind="attrs" v-on="on">
                                 <v-icon small>mdi-dots-vertical</v-icon>
@@ -57,9 +57,56 @@
 
                         <v-list>
                             <v-list-item v-for="(item, i) in items" :key="i">
-                                <v-list-item-title>{{ item.title }}</v-list-item-title>
+                                <v-list-item-title v-text="item.title" @click.stop="handleItemAction(item.title)">
+                                </v-list-item-title>
                             </v-list-item>
                         </v-list>
+
+                        <v-dialog v-model="deleteDialog" max-width="300">
+                            <v-card>
+                                <v-card-title class="text-body2"> 댓글을 삭제하시겠습니까? </v-card-title>
+                                <v-divider></v-divider>
+
+                                <v-card-actions>
+                                    <v-btn class="text-h5" color="#52D4DC" text @click="deleteDialog = false">
+                                        아니요
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn
+                                        class="text-h5 font-weight-bold"
+                                        color="#52D4DC"
+                                        text
+                                        @click="deleteCommeent(comment.id, index)"
+                                    >
+                                        삭제하기
+                                    </v-btn>
+                                </v-card-actions>
+                            </v-card>
+                        </v-dialog>
+                        <v-dialog v-model="editDialog" max-width="300">
+                            <v-card>
+                                <v-card-title class="text-body2"> 파티를 수정하시겠습니까? </v-card-title>
+                                <v-card-text class="text-caption">
+                                    주문하고 싶은 시간은 현재시간 이후로만 설정할 수 있습니다.
+                                </v-card-text>
+                                <v-divider></v-divider>
+
+                                <v-card-actions>
+                                    <v-btn class="text-h5" color="green darken-1" text @click="editDialog = false">
+                                        아니요
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn
+                                        class="text-h5 font-weight-bold"
+                                        color="green darken-1"
+                                        text
+                                        @click="goWrite()"
+                                    >
+                                        수정하기
+                                    </v-btn>
+                                </v-card-actions>
+                            </v-card>
+                        </v-dialog>
                     </v-menu>
                 </v-col>
             </v-row>
@@ -78,7 +125,9 @@ export default {
     name: "detail-component",
     data: () => ({
         num: 7,
-        items: [{ title: "Click Me" }, { title: "Click Me" }, { title: "Click Me" }, { title: "Click Me 2" }],
+        deleteDialog: false,
+        editDialog: false,
+        items: [{ title: "삭제" }, { title: "수정" }],
         //
     }),
     created: function () {
@@ -93,6 +142,9 @@ export default {
         comments() {
             return this.$store.state.comments;
         },
+        userId() {
+            return this.$store.state.userInfo.user_id;
+        },
     },
     methods: {
         tagsToReadable(tags) {
@@ -103,7 +155,7 @@ export default {
         },
         getPartyDetail: async function () {
             try {
-                const result = await request(`/parties/${this.$route.params.partyId}/`, "GET");
+                const result = await request(`/parties/${this.party.id}/`, "GET");
                 if (result.status === 200) {
                     this.$store.dispatch("changeParty", result.data);
                 } else {
@@ -115,11 +167,35 @@ export default {
         },
         getCommentList: async function () {
             try {
-                const result = await request(`/parties/${this.$route.params.partyId}/comments/`, "GET");
+                const result = await request(`/parties/${this.party.id}/comments/`, "GET");
                 if (result.status === 200) {
                     this.$store.dispatch("changeComments", result.data);
                 } else {
                     console.log(result);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        handleItemAction(title) {
+            switch (title) {
+                case "수정":
+                    this.editDialog = true;
+                    break;
+                case "삭제":
+                    this.deleteDialog = true;
+                    break;
+            }
+        },
+        deleteCommeent: async function (commentId, commentIndex) {
+            console.log(commentIndex);
+            try {
+                const result = await request(`/parties/${this.party.id}/comments/${commentId}/`, "DELETE");
+                if (result.status === 204) {
+                    this.deleteDialog = false;
+                    this.$store.dispatch("popToComments", commentIndex);
+                } else {
+                    this.deleteDialog = false;
                 }
             } catch (error) {
                 console.log(error);
