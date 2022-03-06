@@ -100,7 +100,7 @@ export default {
             return this.$store.state.foodTags;
         },
         userId() {
-            return this.$store.state.userId.user_id;
+            return this.$store.state.userInfo.user_id;
         },
         orderTime() {
             if (this.isBefore && this.isEdit) {
@@ -132,7 +132,7 @@ export default {
                 const result = await request("/parties/", "POST", data);
 
                 if (result.status === 201) {
-                    this.$store.commit("pushToParties", result.data);
+                    this.$store.dispatch("pushToParties", result.data);
                     this.$router.go(-1);
                 } else {
                     console.log(result);

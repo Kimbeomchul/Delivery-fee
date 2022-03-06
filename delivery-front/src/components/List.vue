@@ -127,7 +127,7 @@ export default {
         },
         addUserInfo() {
             if (!this.$store.state.userInfo) {
-                this.$store.commit("addUserInfo", this.$route.query);
+                this.$store.dispatch("addUserInfo", this.$route.query);
 
                 // clear query param
                 this.$router.push(this.$route.path).catch((err) => {
@@ -148,7 +148,7 @@ export default {
                 const result = await request("/parties/", "GET");
 
                 if (result.status === 200) {
-                    this.$store.commit("changeParties", result.data);
+                    this.$store.dispatch("changeParties", result.data);
                 } else {
                     console.log(result);
                 }

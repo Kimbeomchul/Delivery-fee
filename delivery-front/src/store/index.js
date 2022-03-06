@@ -27,7 +27,20 @@ export default new Vuex.Store({
             return (state.party = payload);
         },
     },
-    actions: {},
+    actions: {
+        addUserInfo: function (context, payload) {
+            return context.commit("addUserInfo", payload);
+        },
+        changeParties: function (context, payload) {
+            return context.commit("changeParties", payload);
+        },
+        pushToParties: function (context, payload) {
+            return context.commit("pushToParties", payload);
+        },
+        changeParty: function (context, payload) {
+            return context.commit("changeParty", payload);
+        },
+    },
     modules: {},
     getters: {},
 });
