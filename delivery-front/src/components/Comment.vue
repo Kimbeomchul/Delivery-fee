@@ -3,8 +3,7 @@
         <v-text-field label="댓글을 입력해주세요." type="text" hide-details outlined dense v-model="comment">
             <template #append>
                 <v-fade-transition leave-absolute>
-                    <v-progress-circular v-if="loading" size="24" color="info" indeterminate> </v-progress-circular>
-                    <v-btn class="pt-1" v-else icon x-small elevation="0" @click="postComment"
+                    <v-btn class="pt-1" icon x-small elevation="0" @click="postComment"
                         ><img width="24" height="24" src="@/assets/btn.png" alt="btn" />
                     </v-btn>
                 </v-fade-transition>
