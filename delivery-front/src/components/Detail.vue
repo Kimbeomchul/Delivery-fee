@@ -127,7 +127,7 @@ export default {
         num: 7,
         deleteDialog: false,
         editDialog: false,
-        items: [{ title: "삭제" }, { title: "수정" }],
+        items: [{ title: "삭제" }, { title: "수정 (수정을 어느 창에서 해야할지?)" }],
         //
     }),
     created: function () {
