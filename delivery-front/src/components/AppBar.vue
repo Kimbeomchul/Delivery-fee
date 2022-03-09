@@ -132,7 +132,7 @@ export default {
         editDialog: false,
         enterDialog: false,
         exitDialog: false,
-        items: [{ title: "삭제" }, { title: "수정" }, { title: "나가기" }, { title: "참가하기" }],
+        items: [{ title: "삭제" }, { title: "수정" }, { title: "나가기" }, { title: "참가하기" }, { title: "내정보" }],
     }),
     computed: {
         party() {
@@ -235,17 +235,23 @@ export default {
         },
         filteredItems() {
             return this.items.filter((item) => {
-                if (item.title == "삭제" && this.party.user == this.userInfo.user_id) return true;
-                if (item.title == "수정" && this.party.user == this.userInfo.user_id) return true;
-                if (
-                    item.title == "나가기" &&
-                    this.userInfo.participated &&
-                    this.userInfo.participated.party.id == this.$route.params.partyId
-                ) {
-                    return true;
-                }
-                if (item.title == "참가하기") {
-                    return true;
+                if (this.$route.name !== "list") {
+                    if (item.title == "삭제" && this.party.user == this.userInfo.user_id) return true;
+                    if (item.title == "수정" && this.party.user == this.userInfo.user_id) return true;
+                    if (
+                        item.title == "나가기" &&
+                        this.userInfo.participated &&
+                        this.userInfo.participated.party.id == this.$route.params.partyId
+                    ) {
+                        return true;
+                    }
+                    if (item.title == "참가하기") {
+                        return true;
+                    }
+                } else {
+                    if (item.title == "내정보") {
+                        return true;
+                    }
                 }
             });
         },
