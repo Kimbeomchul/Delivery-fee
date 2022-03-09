@@ -9,9 +9,9 @@
     >
         <v-row>
             <v-col cols="2" class="d-flex justify-start">
-                <v-icon color="#52D4DC" v-if="$route.name !== 'list'" large @click="$router.go(-1)"
-                    >mdi-chevron-left
-                </v-icon>
+                <v-btn @click="$router.go(-1)" color="#52D4DC" icon>
+                    <v-icon v-if="$route.name !== 'list'" large>mdi-chevron-left </v-icon>
+                </v-btn>
             </v-col>
             <v-col class="d-flex justify-space-around">
                 <v-toolbar-title class="pt-3">배공파용</v-toolbar-title>
@@ -25,9 +25,12 @@
                     </template>
 
                     <v-list>
-                        <v-list-item v-for="(item, i) in filteredItems()" :key="i">
-                            <v-list-item-title v-text="item.title" @click.stop="handleItemAction(item.title)">
-                            </v-list-item-title>
+                        <v-list-item
+                            @click.stop="handleItemAction(item.title)"
+                            v-for="(item, i) in filteredItems()"
+                            :key="i"
+                        >
+                            <v-list-item-title v-text="item.title"></v-list-item-title>
                         </v-list-item>
                     </v-list>
                     <v-dialog v-model="deleteDialog" max-width="300">
