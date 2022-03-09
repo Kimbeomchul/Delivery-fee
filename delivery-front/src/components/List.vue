@@ -1,15 +1,6 @@
 <template>
     <div>
-        <v-btn
-            router-link
-            :to="{ name: 'map' }"
-            outlined
-            color="#52D4DC"
-            elevation="1"
-            large
-            block
-            class="xl rounded-lg"
-        >
+        <v-btn :to="{ name: 'map' }" outlined color="#52D4DC" elevation="1" large block class="xl rounded-lg">
             <v-icon small @click="$router.go(-1)">mdi-crosshairs-gps</v-icon>
             <v-spacer></v-spacer>
             <div class="black--text font-weight-black" style="font-size: 1.2em">경기도 과천시</div>
@@ -21,7 +12,6 @@
 
         <div class="pt-5 pb-3" v-if="userInfo.participated">
             <v-card
-                router-link
                 :to="{ name: 'detail', params: { partyId: userInfo.participated.party.id } }"
                 class="rounded-lg"
                 elevation="2"
@@ -67,7 +57,6 @@
 
         <div v-for="(party, index) in parties" :key="index" class="pt-5 pb-3">
             <v-card
-                router-link
                 :to="{ name: 'detail', params: { partyId: party.id } }"
                 class="rounded-lg"
                 elevation="2"
