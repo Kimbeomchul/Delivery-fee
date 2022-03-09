@@ -10,7 +10,10 @@
             block
             class="xl rounded-lg"
         >
+            <v-icon small @click="$router.go(-1)">mdi-crosshairs-gps</v-icon>
+            <v-spacer></v-spacer>
             <div class="black--text font-weight-black" style="font-size: 1.2em">경기도 과천시</div>
+            <v-spacer></v-spacer>
         </v-btn>
 
         <div class="black--text font-weight-black pt-6 pb-2" style="font-size: 1.2em">참여중</div>

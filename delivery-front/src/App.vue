@@ -3,9 +3,7 @@
         <appbar-component></appbar-component>
         <v-main>
             <!-- FIXME: 페이지 트랜지션 적용 변경해야함 css -->
-            <transition name="fade">
-                <router-view />
-            </transition>
+            <router-view />
         </v-main>
 
         <v-footer app color="white">
