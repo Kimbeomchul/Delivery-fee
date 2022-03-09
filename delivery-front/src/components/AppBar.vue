@@ -8,18 +8,18 @@
     >
         <v-row>
             <v-col cols="2" class="d-flex justify-start">
-                <v-btn @click="$router.go(-1)" color="#52D4DC" icon>
-                    <v-icon v-if="$route.name !== 'list'" large>mdi-chevron-left </v-icon>
+                <v-btn v-if="$route.name !== 'list'" @click="$router.go(-1)" color="#52D4DC" icon>
+                    <v-icon large>mdi-chevron-left </v-icon>
                 </v-btn>
             </v-col>
             <v-col class="d-flex justify-space-around">
                 <v-toolbar-title class="pt-3">배공파용</v-toolbar-title>
             </v-col>
             <v-col cols="2" class="d-flex justify-end">
-                <v-menu bottom left>
+                <v-menu v-if="$route.name !== 'write'" bottom left>
                     <template #activator="{ on, attrs }">
                         <v-btn color="#52D4DC" icon v-bind="attrs" v-on="on">
-                            <v-icon v-if="$route.name !== 'write'">mdi-menu</v-icon>
+                            <v-icon>mdi-menu</v-icon>
                         </v-btn>
                     </template>
 
