@@ -19,7 +19,7 @@
             </template>
 
             <v-list>
-                <v-list-item v-for="(item, i) in items" :key="i">
+                <v-list-item v-for="(item, i) in filteredItems()" :key="i">
                     <v-list-item-title v-text="item.title" @click.stop="handleItemAction(item.title)">
                     </v-list-item-title>
                 </v-list-item>
@@ -118,9 +118,29 @@ export default {
         items: [{ title: "삭제" }, { title: "수정" }, { title: "나가기" }, { title: "참가하기" }],
     }),
     computed: {
+        party() {
+            return this.$store.state.party;
+        },
         userInfo() {
             return this.$store.state.userInfo;
         },
+        // HACK: computed로 했을때는 새로고침 전까지 데이터가 바인딩?이 잘 안됨 그래서 methods로 바꿈
+        // filteredItems() {
+        //     return this.items.filter((item) => {
+        //         if (item.title == "삭제" && this.party.user == this.userInfo.user_id) return true;
+        //         if (item.title == "수정" && this.party.user == this.userInfo.user_id) return true;
+        //         if (
+        //             item.title == "나가기" &&
+        //             this.userInfo.participated &&
+        //             this.userInfo.participated.party == this.$route.params.partyId
+        //         ) {
+        //             return true;
+        //         }
+        //         if (item.title == "참가하기") {
+        //             return true;
+        //         }
+        //     });
+        // },
     },
     methods: {
         deleteParty: async function (partyId) {
@@ -137,6 +157,11 @@ export default {
             }
         },
         enterParty: async function (partyId) {
+            if (this.userInfo.participated) {
+                this.enterDialog = false;
+                this.$toast.error("이미 파티에 참가 중입니다. <br> 새로운 파티에 참가하시려면 기존 파티를 나와주세요.");
+                return;
+            }
             const data = {
                 party: partyId,
                 user: this.userInfo.user_id,
@@ -190,6 +215,22 @@ export default {
                     this.enterDialog = true;
                     break;
             }
+        },
+        filteredItems() {
+            return this.items.filter((item) => {
+                if (item.title == "삭제" && this.party.user == this.userInfo.user_id) return true;
+                if (item.title == "수정" && this.party.user == this.userInfo.user_id) return true;
+                if (
+                    item.title == "나가기" &&
+                    this.userInfo.participated &&
+                    this.userInfo.participated.party == this.$route.params.partyId
+                ) {
+                    return true;
+                }
+                if (item.title == "참가하기") {
+                    return true;
+                }
+            });
         },
     },
 };

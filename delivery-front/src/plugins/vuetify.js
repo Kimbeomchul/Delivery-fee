@@ -10,6 +10,9 @@ Vue.use(Vuetify, {
     },
 });
 
-Vue.use(VuetifyToast);
+Vue.use(VuetifyToast, {
+    x: "center",
+    y: "top",
+});
 
 export default new Vuetify({});
