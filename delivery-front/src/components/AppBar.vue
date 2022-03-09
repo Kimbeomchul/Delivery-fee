@@ -156,21 +156,21 @@ export default {
             }
             this.enterDialog = false;
         },
-        // exitParty: async function (partyId) {
-        //     try {
-        //         const result = await request("/participants/", "POST", data);
-        //         if (result.status === 201) {
-        //             this.$store.dispatch("pushParticipationStatus" );
-        //             this.enterDialog = false;
-        //         } else {
-        //             console.log(result);
-        //             this.enterDialog = false;
-        //         }
-        //     } catch (error) {
-        //         console.log(error);
-        //     }
-        //     this.enterDialog = false;
-        // },
+        exitParty: async function (partyId) {
+            try {
+                const result = await request(`/participants/${this.userInfo.participated.id}/`, "DELETE");
+                if (result.status === 204) {
+                    this.$store.dispatch("pushParticipationStatus");
+                    this.exitDialog = false;
+                } else {
+                    console.log(result);
+                    this.exitDialog = false;
+                }
+            } catch (error) {
+                console.log(error);
+            }
+            this.exitDialog = false;
+        },
         goWrite() {
             this.$router.push({ name: "write", query: { edit: true } });
             this.editDialog = false;

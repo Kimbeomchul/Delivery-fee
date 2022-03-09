@@ -21,6 +21,9 @@ export default new Vuex.Store({
         pushParticipationStatus: function (state, payload) {
             return (state.userInfo.participated = payload);
         },
+        popParticipationStatus: function (state) {
+            return state.userInfo.splice("participated");
+        },
         changeParties: function (state, payload) {
             return (state.parties = payload);
         },
@@ -46,6 +49,9 @@ export default new Vuex.Store({
         },
         pushParticipationStatus: function (context, payload) {
             return context.commit("pushParticipationStatus", payload);
+        },
+        popParticipationStatus: function (context) {
+            return context.commit("pushParticipationStatus");
         },
         changeParties: function (context, payload) {
             return context.commit("changeParties", payload);
