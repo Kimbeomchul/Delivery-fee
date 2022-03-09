@@ -223,7 +223,7 @@ export default {
                 if (
                     item.title == "나가기" &&
                     this.userInfo.participated &&
-                    this.userInfo.participated.party == this.$route.params.partyId
+                    this.userInfo.participated.party.id == this.$route.params.partyId
                 ) {
                     return true;
                 }
