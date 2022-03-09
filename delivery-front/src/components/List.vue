@@ -16,8 +16,15 @@
         <div class="black--text font-weight-black pt-6 pb-2" style="font-size: 1.2em">참여중</div>
         <v-divider class="pb-5"></v-divider>
 
-        <div class="pt-5 pb-3">
-            <v-card class="rounded-lg" elevation="2" outline height="150">
+        <div class="pt-5 pb-3" v-if="userInfo.participated">
+            <v-card
+                router-link
+                :to="{ name: 'detail', params: { partyId: userInfo.participated.party.id } }"
+                class="rounded-lg"
+                elevation="2"
+                outline
+                height="150"
+            >
                 <v-row>
                     <v-col class="pt-4 pl-8">
                         <v-img
@@ -26,14 +33,18 @@
                             height="100"
                             src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
                         ></v-img>
-                        <div class="pl-4 pt-1 font-weight-black">10시 35분</div>
+                        <div class="pl-4 pt-1 font-weight-black">
+                            {{ datetimeToReadable(userInfo.participated.party.order_time) }}
+                        </div>
                     </v-col>
 
                     <v-col class="text-left">
-                        <div class="font-weight-black pr-4 text-right" style="font-size: 1.2em">근처 파티 구해요</div>
+                        <div class="font-weight-black pr-4 text-right" style="font-size: 1.2em">
+                            {{ userInfo.participated.party.title }}
+                        </div>
 
                         <div class="grey--text font-weight-bold pr-4" style="font-size: 0.8em; text-align: right">
-                            #치킨 #피자 #짜장면
+                            {{ tagsToReadable(userInfo.participated.party.tags) }}
                         </div>
 
                         <div class="grey--text font-weight-bold pr-4 pt-3" style="font-size: 0.8em; text-align: right">
@@ -114,6 +125,9 @@ export default {
     },
     mounted: function () {},
     computed: {
+        userInfo() {
+            return this.$store.state.userInfo;
+        },
         parties() {
             return this.$store.state.parties;
         },
