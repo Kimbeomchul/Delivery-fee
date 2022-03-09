@@ -17,3 +17,8 @@ class ParticipantsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Participant
         fields = '__all__'
+
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['party'] = PartySerializer(instance.party).data
+        return response
