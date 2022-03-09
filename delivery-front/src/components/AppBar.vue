@@ -24,6 +24,7 @@
                         </v-btn>
                     </template>
 
+                    <!-- HACK: 메뉴 항목을 클릭하고 다음 페이지로 넘어갈 때 메뉴가 안닫힘 -->
                     <v-list>
                         <v-list-item
                             @click.stop="handleItemAction(item.title)"
