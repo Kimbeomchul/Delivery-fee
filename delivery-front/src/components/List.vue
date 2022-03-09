@@ -14,7 +14,7 @@
             <v-card
                 :to="{ name: 'detail', params: { partyId: userInfo.participated.party.id } }"
                 class="rounded-lg"
-                elevation="2"
+                elevation="10"
                 outline
                 height="150"
             >
