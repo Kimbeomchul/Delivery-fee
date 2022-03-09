@@ -20,7 +20,7 @@
                 <v-menu bottom left>
                     <template #activator="{ on, attrs }">
                         <v-btn color="#52D4DC" icon v-bind="attrs" v-on="on">
-                            <v-icon>mdi-menu</v-icon>
+                            <v-icon v-if="$route.name !== 'write'">mdi-menu</v-icon>
                         </v-btn>
                     </template>
 
@@ -60,11 +60,9 @@
                             <v-divider></v-divider>
 
                             <v-card-actions>
-                                <v-btn class="text-h5" color="green darken-1" text @click="editDialog = false">
-                                    아니요
-                                </v-btn>
+                                <v-btn class="text-h5" color="#52D4DC" text @click="editDialog = false"> 아니요 </v-btn>
                                 <v-spacer></v-spacer>
-                                <v-btn class="text-h5 font-weight-bold" color="green darken-1" text @click="goWrite()">
+                                <v-btn class="text-h5 font-weight-bold" color="#52D4DC" text @click="goWrite()">
                                     수정하기
                                 </v-btn>
                             </v-card-actions>
