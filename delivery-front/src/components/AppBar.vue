@@ -4,7 +4,6 @@
         elevation="0"
         color="white"
         dense
-        height="40"
         class="shrink"
     >
         <v-row>
