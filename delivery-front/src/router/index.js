@@ -7,32 +7,37 @@ const routes = [
     {
         path: "/",
         name: "home",
-        component: () => import("../views/Home.vue"),
+        component: () => import("@/views/Home.vue"),
     },
     {
         path: "/login",
         name: "login",
-        component: () => import("../views/Login.vue"),
+        component: () => import("@/views/Login.vue"),
     },
     {
         path: "/list",
         name: "list",
-        component: () => import("../views/ListWrite.vue"),
+        component: () => import("@/views/ListWrite.vue"),
     },
     {
         path: "/write",
         name: "write",
-        component: () => import("../views/Write.vue"),
+        component: () => import("@/views/Write.vue"),
     },
     {
         path: "/detail/:partyId",
         name: "detail",
-        component: () => import("../views/Detail.vue"),
+        component: () => import("@/views/Detail.vue"),
     },
     {
         path: "/map",
         name: "map",
-        component: () => import("../views/Map.vue"),
+        component: () => import("@/views/Map.vue"),
+    },
+    {
+        path: "/profile",
+        name: "profile",
+        component: () => import("@/views/Profile.vue"),
     },
 ];
 

@@ -1,11 +1,5 @@
 <template>
-    <v-app-bar
-        v-if="$route.name === 'detail' || $route.name === 'map' || $route.name === 'list' || $route.name === 'write'"
-        elevation="0"
-        color="white"
-        dense
-        class="shrink"
-    >
+    <v-app-bar elevation="0" color="white" dense class="shrink">
         <v-row>
             <v-col cols="2" class="d-flex justify-start">
                 <v-btn v-if="$route.name !== 'list'" @click="$router.go(-1)" color="#52D4DC" icon>
@@ -16,7 +10,7 @@
                 <v-toolbar-title class="pt-3">배공파용</v-toolbar-title>
             </v-col>
             <v-col cols="2" class="d-flex justify-end">
-                <v-menu v-if="$route.name !== 'write'" bottom left>
+                <v-menu v-if="$route.name !== 'write' && $route.name !== 'profile'" bottom left>
                     <template #activator="{ on, attrs }">
                         <v-btn color="#52D4DC" icon v-bind="attrs" v-on="on">
                             <v-icon>mdi-menu</v-icon>
@@ -230,6 +224,9 @@ export default {
                     break;
                 case "참가하기":
                     this.enterDialog = true;
+                    break;
+                case "내정보":
+                    this.$router.push({ name: "profile" });
                     break;
             }
         },

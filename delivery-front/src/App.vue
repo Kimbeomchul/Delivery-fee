@@ -21,13 +21,3 @@ export default {
     components: { AppbarComponent, CommentComponent },
 };
 </script>
-
-<style>
-.fade-enter-active,
-.fade-leave-active {
-    transition: opacity 0.3s;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
-    opacity: 0;
-}
-</style>
