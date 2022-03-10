@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-btn :to="{ name: 'map' }" outlined color="#52D4DC" elevation="1" large block class="xl rounded-lg">
-            <v-icon small @click="$router.go(-1)">mdi-crosshairs-gps</v-icon>
+            <v-icon small>mdi-crosshairs-gps</v-icon>
             <v-spacer></v-spacer>
             <div class="black--text font-weight-black" style="font-size: 1.2em">경기도 과천시</div>
             <v-spacer></v-spacer>
