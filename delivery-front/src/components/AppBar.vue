@@ -98,12 +98,7 @@
                             <v-card-actions>
                                 <v-btn class="text-h5" color="#52D4DC" text @click="exitDialog = false"> 아니요 </v-btn>
                                 <v-spacer></v-spacer>
-                                <v-btn
-                                    class="text-h5 font-weight-bold"
-                                    color="#52D4DC"
-                                    text
-                                    @click="exitParty($route.params.partyId)"
-                                >
+                                <v-btn class="text-h5 font-weight-bold" color="#52D4DC" text @click="exitParty()">
                                     나가기
                                 </v-btn>
                             </v-card-actions>
@@ -192,7 +187,7 @@ export default {
             }
             this.enterDialog = false;
         },
-        exitParty: async function (partyId) {
+        exitParty: async function () {
             try {
                 const result = await request(`/participants/${this.userInfo.participated.id}/`, "DELETE");
                 if (result.status === 204) {
