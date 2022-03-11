@@ -46,6 +46,7 @@ services:
             - CHOKIDAR_USEPOLLING=true
         volumes:
             - ./delivery-front:/delivery-front/
+            - /delivery-front/node_modules
         working_dir: /delivery-front/
         command: "npm run serve"
         ports:
