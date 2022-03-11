@@ -7,6 +7,7 @@ services:
     postgres:
         container_name: postgres
         image: postgis/postgis:14-3.2-alpine
+        platform: linux/amd64
         volumes:
             - postgres_db_dev:/var/lib/postgresql/data
         env_file:
@@ -18,6 +19,7 @@ services:
         container_name: django
         hostname: yjk
         image: django
+        platform: linux/amd64
         build:
             context: ./delivery-backend
             dockerfile: Dockerfile
@@ -39,6 +41,7 @@ services:
     vue:
         container_name: vue
         image: vue
+        platform: linux/amd64
         build:
             context: ./delivery-front
             dockerfile: Dockerfile
