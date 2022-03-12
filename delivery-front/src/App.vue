@@ -1,6 +1,6 @@
 <template>
     <v-app>
-        <appbar-component></appbar-component>
+        <appbar-component v-if="$route.name !== 'home'"></appbar-component>
         <v-main>
             <!-- FIXME: 페이지 트랜지션 적용 변경해야함 css -->
             <router-view />
