@@ -9,13 +9,13 @@
             </v-col>
         </v-row>
         <v-divider class="mt-3 mb-3"></v-divider>
-        <div class="text-body-1 text--primary"><v-icon>mdi-account</v-icon> 프로필 설정</div>
+        <div class="text-body-1 text--primary"><v-icon color="#52D4DC">mdi-account</v-icon> 프로필 설정</div>
         <v-divider class="mt-3 mb-3"></v-divider>
-        <div class="text-body-1 text--primary"><v-icon>mdi-file-sign</v-icon> 약관 및 정책</div>
+        <div class="text-body-1 text--primary"><v-icon color="#52D4DC">mdi-file-sign</v-icon> 약관 및 정책</div>
         <v-divider class="mt-3 mb-3"></v-divider>
-        <div class="text-body-1 text--primary"><v-icon>mdi-logout</v-icon> 로그아웃</div>
+        <div class="text-body-1 text--primary"><v-icon color="#52D4DC">mdi-logout</v-icon> 로그아웃</div>
         <v-divider class="mt-3 mb-3"></v-divider>
-        <div class="text-body-1 text--primary"><v-icon>mdi-account-off</v-icon> 회원탈퇴</div>
+        <div class="text-body-1 text--primary"><v-icon color="#52D4DC">mdi-account-off</v-icon> 회원탈퇴</div>
         <v-divider class="mt-3 mb-3"></v-divider>
     </div>
 </template>
