@@ -126,7 +126,7 @@ export default {
     },
     methods: {
         tagsToReadable(tags) {
-            return "#" + tags.join(" #");
+            return tags ? "#" + tags.join(" #") : "#";
         },
         datetimeToReadable(time) {
             return dayjs(time).format("HH시 mm분");
