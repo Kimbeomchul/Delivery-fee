@@ -23,10 +23,12 @@ from parties.views import PartyViewSet, ParticipantViewSet
 
 root_router = DefaultRouter()
 root_router.register('parties', PartyViewSet)
-root_router.register('participants', ParticipantViewSet)
 
 comments_router = NestedDefaultRouter(root_router, 'parties', lookup='party')
 comments_router.register('comments', CommentViewSet)
+
+participants_router = NestedDefaultRouter(root_router, 'parties', lookup='party')
+participants_router.register('participants', ParticipantViewSet)
 
 
 urlpatterns = [
@@ -34,6 +36,7 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('api/v1/', include(root_router.urls)),
     path('api/v1/', include(comments_router.urls)),
+    path('api/v1/', include(participants_router.urls)),
     path('api/v1/auth/', include('authentication.urls')),
     path('api/v1/auth/', include('dj_rest_auth.urls')),
     path('api/v1/auth/', include('allauth.urls')),   

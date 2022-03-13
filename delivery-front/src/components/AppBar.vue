@@ -177,7 +177,7 @@ export default {
                 user: this.userInfo.user_id,
             };
             try {
-                const result = await request("/participants/", "POST", data);
+                const result = await request(`/parties/${this.$route.params.partyId}/participants/`, "POST", data);
                 if (result.status === 201) {
                     const { id, party } = result.data;
                     this.$store.dispatch("pushParticipationStatus", { id: id, party: party });
@@ -193,7 +193,7 @@ export default {
         },
         exitParty: async function () {
             try {
-                const result = await request(`/participants/${this.userInfo.participated.id}/`, "DELETE");
+                const result = await request(`/parties/${this.userInfo.participated.party.id}/participants/${this.userInfo.participated.id}/`, "DELETE");
                 if (result.status === 204) {
                     this.$store.dispatch("pushParticipationStatus");
                     this.exitDialog = false;

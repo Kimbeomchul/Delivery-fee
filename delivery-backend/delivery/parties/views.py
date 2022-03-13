@@ -13,3 +13,6 @@ class PartyViewSet(viewsets.ModelViewSet):
 class ParticipantViewSet(viewsets.ModelViewSet):
     queryset = Participant.objects.all()
     serializer_class = ParticipantsSerializer
+
+    def get_queryset(self):
+        return Participant.objects.filter(party=self.kwargs['party_pk'])
