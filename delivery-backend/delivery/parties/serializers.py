@@ -1,11 +1,11 @@
 from rest_framework import serializers
-
-from parties.models import Party, Participant
-
 from taggit.serializers import TagListSerializerField, TaggitSerializer
 
+from parties.models import Party, Participant
+from common.serializers import DisableUpdateUserMixin
 
-class PartySerializer(TaggitSerializer, serializers.ModelSerializer):
+
+class PartySerializer(TaggitSerializer, DisableUpdateUserMixin, serializers.ModelSerializer):
     tags = TagListSerializerField()
 
     class Meta:
@@ -13,7 +13,7 @@ class PartySerializer(TaggitSerializer, serializers.ModelSerializer):
         fields = '__all__'
         
         
-class ParticipantsSerializer(serializers.ModelSerializer):
+class ParticipantsSerializer(DisableUpdateUserMixin, serializers.ModelSerializer):
     class Meta:
         model = Participant
         fields = '__all__'
