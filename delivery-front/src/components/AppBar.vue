@@ -193,7 +193,10 @@ export default {
         },
         exitParty: async function () {
             try {
-                const result = await request(`/parties/${this.userInfo.participated.party.id}/participants/${this.userInfo.participated.id}/`, "DELETE");
+                const result = await request(
+                    `/parties/${this.userInfo.participated.party.id}/participants/${this.userInfo.participated.id}/`,
+                    "DELETE"
+                );
                 if (result.status === 204) {
                     this.$store.dispatch("pushParticipationStatus");
                     this.exitDialog = false;

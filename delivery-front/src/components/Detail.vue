@@ -148,7 +148,7 @@ export default {
     },
     methods: {
         tagsToReadable(tags) {
-            return tags ? "#" + tags.join(" #") : "#"
+            return tags ? "#" + tags.join(" #") : "#";
         },
         datetimeToReadable(time) {
             return dayjs(time).format("HH시 mm분");
@@ -169,7 +169,7 @@ export default {
             try {
                 const result = await request(`/parties/${this.$route.params.partyId}/comments/`, "GET");
                 if (result.status === 200) {
-                    this.$store.dispatch("changeComments", result.data);
+                    this.$store.dispatch("changeComments", result.data["results"]);
                 } else {
                     console.log(result);
                 }

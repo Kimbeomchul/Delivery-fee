@@ -96,6 +96,7 @@
                 </v-row>
             </v-card>
         </div>
+        <infinite-loading @infinite="infiniteHandler" spinner="waveDots"></infinite-loading>
     </div>
 </template>
 
@@ -104,11 +105,16 @@ import request from "@/request";
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
 dayjs.locale("ko");
+import InfiniteLoading from "vue-infinite-loading";
 
 export default {
     name: "list-component",
+    components: {
+        InfiniteLoading,
+    },
     data: () => ({
         num: 7,
+        page: 2,
         //
     }),
     created: function () {
@@ -154,13 +160,54 @@ export default {
                 const result = await request("/parties/", "GET");
 
                 if (result.status === 200) {
-                    this.$store.dispatch("changeParties", result.data);
+                    this.$store.dispatch("changeParties", result.data["results"]);
                 } else {
                     console.log(result);
                 }
             } catch (error) {
                 console.log(error);
             }
+        },
+        infiniteHandler($state) {
+            console.log("1231");
+            const EACH_LEN = 30;
+            const baseURL = "http://localhost:8000/api/v1";
+
+            fetch(`${baseURL}/parties/?page=` + this.page, {
+                method: "get",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${this.userInfo.access_token}`,
+                },
+            })
+                .then((resp) => {
+                    return resp.json();
+                })
+                .then((data) => {
+                    setTimeout(() => {
+                        if (data["count"] >= 0) {
+                            // this.topicData = this.topicData.concat(data);
+                            // this.$store.dispatch("concatToParties", data["results"]);
+                            this.$store.dispatch("pushToParties", data["results"]);
+                            console.log(data["results"]);
+                            console.log(this.parties);
+                            $state.loaded();
+                            this.page += 1;
+
+                            $state.complete();
+                            // 끝 지정(No more data) - 데이터가 EACH_LEN개 미만이면
+                            // if (data["count"] < EACH_LEN) {
+                            //     $state.complete();
+                            // }
+                        } else {
+                            // 끝 지정(No more data)
+                            $state.complete();
+                        }
+                    }, 1000);
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
         },
     },
 };

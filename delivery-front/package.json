@@ -11,6 +11,7 @@
         "core-js": "^3.6.5",
         "dayjs": "^1.10.7",
         "vue": "^2.6.11",
+        "vue-infinite-loading": "^2.4.5",
         "vue-router": "^3.2.0",
         "vuetify": "^2.4.0",
         "vuetify-toast-snackbar-ng": "^0.7.4",

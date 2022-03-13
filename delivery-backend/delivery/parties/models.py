@@ -14,6 +14,8 @@ class Party(Timestampable):
     content = models.TextField(help_text='파티 내용')
     user = models.ForeignKey(User, on_delete=models.CASCADE, help_text='파티 주최자')
 
+    class Meta:
+        ordering = ['-order_time']
 
 class Participant(Timestampable):
     party = models.ForeignKey(Party, on_delete=models.CASCADE, help_text='참가한 파티')
