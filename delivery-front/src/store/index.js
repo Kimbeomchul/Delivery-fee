@@ -28,7 +28,7 @@ export default new Vuex.Store({
             return (state.parties = payload);
         },
         pushToParties: function (state, payload) {
-            return payload.infinite > 1 ? state.parties.push(...payload) : state.parties.push(payload);
+            return payload.infinite ? state.parties.push(...payload) : state.parties.push(payload);
         },
         changeParty: function (state, payload) {
             return (state.party = payload);
