@@ -112,19 +112,31 @@
             </v-row>
             <div class="pb-2 pl-5 pr-5 text-body-2">{{ comment.content }}</div>
         </div>
+        <infinite-loading @infinite="infiniteHandler" spinner="waveDots">
+            <div slot="no-more"></div>
+            <div slot="no-results">아직 파티가 없습니다. 파티를 생성해보세요.</div>
+        </infinite-loading>
+        <br />
+        <br />
     </div>
 </template>
 
 <script>
 import request from "@/request";
+import InfiniteRequest from "@/infinite-request";
+import InfiniteLoading from "vue-infinite-loading";
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
 dayjs.locale("ko");
 
 export default {
     name: "detail-component",
+    components: {
+        InfiniteLoading,
+    },
     data: () => ({
         num: 7,
+        page: "",
         deleteDialog: false,
         editDialog: false,
         items: [{ title: "삭제" }, { title: "수정 (수정을 어느 창에서 해야할지?)" }],
@@ -169,6 +181,9 @@ export default {
             try {
                 const result = await request(`/parties/${this.$route.params.partyId}/comments/`, "GET");
                 if (result.status === 200) {
+                    if (result.data["next"]) {
+                        this.page = 2;
+                    }
                     this.$store.dispatch("changeComments", result.data["results"]);
                 } else {
                     console.log(result);
@@ -200,6 +215,14 @@ export default {
             } catch (error) {
                 console.log(error);
             }
+        },
+        infiniteHandler: async function ($state) {
+            await InfiniteRequest(
+                $state,
+                `/parties/${this.$route.params.partyId}/comments/`,
+                this.page,
+                "pushToComments"
+            );
         },
     },
 };

@@ -37,7 +37,7 @@ export default new Vuex.Store({
             return (state.comments = payload);
         },
         pushToComments: function (state, payload) {
-            return state.comments.push(payload);
+            return payload.length > 1 ? state.comments.push(...payload) : state.comments.push(payload);
         },
         popToComments: function (state, payload) {
             return state.comments.splice(payload, 1);

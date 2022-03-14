@@ -96,16 +96,20 @@
                 </v-row>
             </v-card>
         </div>
-        <infinite-loading @infinite="infiniteHandler" spinner="waveDots"></infinite-loading>
+        <infinite-loading @infinite="infiniteHandler" spinner="waveDots">
+            <div slot="no-more"></div>
+            <div slot="no-results">아직 파티가 없습니다. 파티를 생성해보세요.</div>
+        </infinite-loading>
     </div>
 </template>
 
 <script>
 import request from "@/request";
+import InfiniteRequest from "@/infinite-request";
+import InfiniteLoading from "vue-infinite-loading";
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
 dayjs.locale("ko");
-import InfiniteLoading from "vue-infinite-loading";
 
 export default {
     name: "list-component",
@@ -114,7 +118,7 @@ export default {
     },
     data: () => ({
         num: 7,
-        page: 2,
+        page: "",
         //
     }),
     created: function () {
@@ -160,6 +164,9 @@ export default {
                 const result = await request("/parties/", "GET");
 
                 if (result.status === 200) {
+                    if (result.data["next"]) {
+                        this.page = 2;
+                    }
                     this.$store.dispatch("changeParties", result.data["results"]);
                 } else {
                     console.log(result);
@@ -168,46 +175,8 @@ export default {
                 console.log(error);
             }
         },
-        infiniteHandler($state) {
-            console.log("1231");
-            const EACH_LEN = 30;
-            const baseURL = "http://localhost:8000/api/v1";
-
-            fetch(`${baseURL}/parties/?page=` + this.page, {
-                method: "get",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${this.userInfo.access_token}`,
-                },
-            })
-                .then((resp) => {
-                    return resp.json();
-                })
-                .then((data) => {
-                    setTimeout(() => {
-                        if (data["count"] >= 0) {
-                            // this.topicData = this.topicData.concat(data);
-                            // this.$store.dispatch("concatToParties", data["results"]);
-                            this.$store.dispatch("pushToParties", data["results"]);
-                            console.log(data["results"]);
-                            console.log(this.parties);
-                            $state.loaded();
-                            this.page += 1;
-
-                            $state.complete();
-                            // 끝 지정(No more data) - 데이터가 EACH_LEN개 미만이면
-                            // if (data["count"] < EACH_LEN) {
-                            //     $state.complete();
-                            // }
-                        } else {
-                            // 끝 지정(No more data)
-                            $state.complete();
-                        }
-                    }, 1000);
-                })
-                .catch((err) => {
-                    console.error(err);
-                });
+        infiniteHandler: async function ($state) {
+            await InfiniteRequest($state, "/parties/", this.page, "pushToParties");
         },
     },
 };
