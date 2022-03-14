@@ -28,7 +28,7 @@ export default new Vuex.Store({
             return (state.parties = payload);
         },
         pushToParties: function (state, payload) {
-            return payload.length > 1 ? state.parties.push(...payload) : state.parties.push(payload);
+            return payload.infinite > 1 ? state.parties.push(...payload) : state.parties.push(payload);
         },
         changeParty: function (state, payload) {
             return (state.party = payload);
@@ -37,7 +37,7 @@ export default new Vuex.Store({
             return (state.comments = payload);
         },
         pushToComments: function (state, payload) {
-            return payload.length > 1 ? state.comments.push(...payload) : state.comments.push(payload);
+            return payload.infinite ? state.comments.push(...payload) : state.comments.push(payload);
         },
         popToComments: function (state, payload) {
             return state.comments.splice(payload, 1);

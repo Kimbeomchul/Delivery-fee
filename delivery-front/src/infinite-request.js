@@ -22,6 +22,7 @@ const InfiniteRequest = async ($state, action, page = null, dispatch) => {
         .then((data) => {
             setTimeout(() => {
                 if (data["results"]) {
+                    data["results"]["infinite"] = true;
                     store.dispatch(dispatch, data["results"]);
                     $state.loaded();
                     page += 1;
