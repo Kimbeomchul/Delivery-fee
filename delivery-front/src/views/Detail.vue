@@ -1,5 +1,5 @@
 <template>
-    <v-container class="spacing-playground pa-6">
+    <v-container class="spacing-playground pa-4">
         <detail-component></detail-component>
     </v-container>
 </template>

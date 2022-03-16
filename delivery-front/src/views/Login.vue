@@ -1,5 +1,5 @@
 <template>
-    <v-container class="spacing-playground pa-6 text-center">
+    <v-container class="spacing-playground pa-4 text-center">
         <v-row style="height: 200px"> </v-row>
         <img src="../assets/logo2.png" alt="logo" />
         <v-row style="height: 40px"> </v-row>
