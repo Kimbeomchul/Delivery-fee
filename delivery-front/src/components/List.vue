@@ -51,7 +51,10 @@
                             제주도 제주시 해안동
                         </div>
                         <br />
-                        <div class="grey--text font-weight-medium pr-4" style="font-size: 0.8em; text-align: right">
+                        <div
+                            class="grey--text text--darken-1 font-weight-medium pr-4"
+                            style="font-size: 0.8em; text-align: right"
+                        >
                             108m
                         </div>
                     </v-col>
@@ -103,7 +106,10 @@
                             제주도 제주시 해안동
                         </div>
                         <br />
-                        <div class="grey--text font-weight-medium pr-4" style="font-size: 0.8em; text-align: right">
+                        <div
+                            class="grey--text text--darken-1 font-weight-medium pr-4"
+                            style="font-size: 0.8em; text-align: right"
+                        >
                             108m
                         </div>
                     </v-col>
