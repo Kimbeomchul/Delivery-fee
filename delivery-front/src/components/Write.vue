@@ -94,7 +94,10 @@ export default {
         timerSlider: { val: 0, color: "#52D4DC" },
         editTimerSlider: { val: 0, color: "#52D4DC" },
         valid: true,
-        titleRules: [(value) => !!value || "제목은 필수 입력 항목입니다."],
+        titleRules: [
+            (value) => !!value || "제목은 필수 입력 항목입니다.",
+            (value) => (value && value.length <= 12) || "제목은 12자까지 입력할 수 있습니다.",
+        ],
         contentRules: [(value) => !!value || "내용은 필수 입력 항목입니다."],
     }),
     created: function () {
