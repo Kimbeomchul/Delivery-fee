@@ -1,7 +1,7 @@
 <template>
     <v-app-bar elevation="0" color="white" dense class="shrink">
         <v-row>
-            <v-col cols="2" class="d-flex justify-start">
+            <v-col cols="2" class="pl-0 pr-0 d-flex justify-start">
                 <v-btn v-if="$route.name !== 'list'" @click="$router.go(-1)" color="#52D4DC" icon>
                     <v-icon large>mdi-chevron-left </v-icon>
                 </v-btn>
@@ -9,7 +9,7 @@
             <v-col class="d-flex justify-space-around">
                 <v-toolbar-title class="pt-3">배공파용</v-toolbar-title>
             </v-col>
-            <v-col cols="2" class="d-flex justify-end">
+            <v-col cols="2" class="pl-0 pr-0 d-flex justify-end">
                 <v-menu
                     v-if="$route.name !== 'write' && $route.name !== 'profile' && $route.name !== 'login'"
                     bottom
