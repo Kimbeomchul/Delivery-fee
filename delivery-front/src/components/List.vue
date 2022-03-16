@@ -19,7 +19,7 @@
                 height="150"
             >
                 <v-row>
-                    <v-col class="pt-4 pl-8">
+                    <v-col cols="4" class="pt-3 pl-6 pr-0">
                         <v-img
                             class="rounded-lg"
                             width="100"
@@ -31,7 +31,7 @@
                         </div>
                     </v-col>
 
-                    <v-col class="text-left">
+                    <v-col cols="8" class="text-left">
                         <div class="font-weight-black pr-4 text-right" style="font-size: 1.2em">
                             {{ userInfo.participated.party.title }}
                         </div>
@@ -74,7 +74,7 @@
                 height="150"
             >
                 <v-row>
-                    <v-col class="pt-4 pl-8">
+                    <v-col cols="4" class="pt-3 pl-6 pr-0">
                         <v-img
                             class="rounded-lg"
                             width="100"
@@ -86,7 +86,7 @@
                         </div>
                     </v-col>
 
-                    <v-col class="text-left">
+                    <v-col cols="8" class="text-left">
                         <div class="font-weight-black pr-4 text-right" style="font-size: 1.2em">
                             {{ party.title }}
                         </div>
