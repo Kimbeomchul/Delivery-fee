@@ -235,12 +235,13 @@ export default {
         filteredItems() {
             return this.items.filter((item) => {
                 if (this.$route.name !== "list") {
-                    if (item.title == "삭제" && this.party.user == this.userInfo.user_id) return true;
-                    if (item.title == "수정" && this.party.user == this.userInfo.user_id) return true;
+                    // ? 연산자는 Optional Chaining을 일컫는다. object가 존재하지 않는다면 바로 false를 반환한다.
+                    if (item.title == "삭제" && this.party?.user == this.userInfo?.user_id) return true;
+                    if (item.title == "수정" && this.party?.user == this.userInfo?.user_id) return true;
                     if (
                         item.title == "나가기" &&
-                        this.userInfo.participated &&
-                        this.userInfo.participated.party.id == this.$route.params.partyId
+                        this.userInfo?.participated &&
+                        this.userInfo?.participated.party.id == this.$route.params.partyId
                     ) {
                         return true;
                     }
