@@ -41,10 +41,10 @@ export default {
         clearStorage() {
             let clearStorage = JSON.parse(localStorage.getItem("vuex"));
 
-            clearStorage.userInfo = null;
-            clearStorage.parties = null;
-            clearStorage.party = null;
-            clearStorage.comments = null;
+            clearStorage.userInfo = "";
+            clearStorage.parties = [];
+            clearStorage.party = [];
+            clearStorage.comments = [];
 
             localStorage.setItem("vuex", JSON.stringify(clearStorage));
         },
