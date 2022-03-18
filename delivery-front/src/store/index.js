@@ -42,6 +42,11 @@ export default new Vuex.Store({
         popToComments: function (state, payload) {
             return state.comments.splice(payload, 1);
         },
+        logout: function (state) {
+            for (let key in state) {
+                state[key] = null;
+            }
+        },
     },
     actions: {
         addUserInfo: function (context, payload) {
@@ -70,6 +75,9 @@ export default new Vuex.Store({
         },
         popToComments: function (context, payload) {
             return context.commit("popToComments", payload);
+        },
+        logout: function (context) {
+            return context.commit("logout");
         },
     },
     modules: {},

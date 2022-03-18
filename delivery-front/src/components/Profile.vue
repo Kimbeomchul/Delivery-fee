@@ -13,7 +13,9 @@
         <v-divider class="mt-3 mb-3"></v-divider>
         <div class="text-body-1 text--primary"><v-icon color="#52D4DC">mdi-file-sign</v-icon> 약관 및 정책</div>
         <v-divider class="mt-3 mb-3"></v-divider>
-        <div class="text-body-1 text--primary"><v-icon color="#52D4DC">mdi-logout</v-icon> 로그아웃</div>
+        <div class="text-body-1 text--primary" @click="logout()">
+            <v-icon color="#52D4DC">mdi-logout</v-icon> 로그아웃
+        </div>
         <v-divider class="mt-3 mb-3"></v-divider>
         <div class="text-body-1 text--primary"><v-icon color="#52D4DC">mdi-account-off</v-icon> 회원탈퇴</div>
         <v-divider class="mt-3 mb-3"></v-divider>
@@ -29,6 +31,14 @@ export default {
     created: function () {},
     mounted: function () {},
     computed: {},
-    methods: {},
+    methods: {
+        logout() {
+            // 로그아웃시 vuex의 모든 state 제거 & vuex localStorage 제거
+            this.$store.dispatch("logout").then(() => {
+                window.localStorage.clear();
+                this.$router.push({ name: "home" });
+            });
+        },
+    },
 };
 </script>
