@@ -43,9 +43,10 @@ export default new Vuex.Store({
             return state.comments.splice(payload, 1);
         },
         logout: function (state) {
-            for (let key in state) {
-                state[key] = null;
-            }
+            state.userInfo = null;
+            state.parties = null;
+            state.party = null;
+            state.comments = null;
         },
     },
     actions: {

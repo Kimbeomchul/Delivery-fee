@@ -33,11 +33,20 @@ export default {
     computed: {},
     methods: {
         logout() {
-            // 로그아웃시 vuex의 모든 state 제거 & vuex localStorage 제거
             this.$store.dispatch("logout").then(() => {
-                window.localStorage.clear();
+                this.clearStorage();
                 this.$router.push({ name: "home" });
             });
+        },
+        clearStorage() {
+            let clearStorage = JSON.parse(localStorage.getItem("vuex"));
+
+            clearStorage.userInfo = null;
+            clearStorage.parties = null;
+            clearStorage.party = null;
+            clearStorage.comments = null;
+
+            localStorage.setItem("vuex", JSON.stringify(clearStorage));
         },
     },
 };
