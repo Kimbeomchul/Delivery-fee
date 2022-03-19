@@ -170,6 +170,8 @@ export default {
     created: function () {
         this.getPartyDetail();
         this.getCommentList();
+
+        this.$store.dispatch("changeLoadingStatusComments", false);
     },
     mounted: function () {},
     computed: {
@@ -249,7 +251,6 @@ export default {
             //     this.page,
             //     "pushToComments"
             // );
-
             // await InfiniteRequest($state, "/parties/", this.page, "pushToParties");
             this.computePageOnRefresh();
 
@@ -277,9 +278,13 @@ export default {
                             this.page += 1;
 
                             if (!data["next"]) {
+                                console.log($state.loaded, $state.complete);
+                                this.$store.dispatch("changeLoadingStatusComments", true);
                                 $state.complete();
                             }
                         } else {
+                            this.$store.dispatch("changeLoadingStatusComments", true);
+                            console.log($state.loaded, $state.complete);
                             // 끝 지정(No more data)
                             $state.complete();
                         }

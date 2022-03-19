@@ -13,6 +13,7 @@ export default new Vuex.Store({
         parties: [],
         party: [],
         comments: [],
+        isFullyLoadedComments: false,
     },
     mutations: {
         addUserInfo: function (state, payload) {
@@ -44,7 +45,7 @@ export default new Vuex.Store({
             if (payload.infinite) {
                 return state.comments.push(...payload);
             } else {
-                state.comments.pop();
+                if (!state.isFullyLoadedComments) state.comments.pop();
                 state.comments.unshift(payload);
             }
         },
@@ -56,6 +57,9 @@ export default new Vuex.Store({
             state.parties = [];
             state.party = [];
             state.comments = [];
+        },
+        changeLoadingStatusComments: function (state, payload) {
+            return (state.isFullyLoadedComments = payload);
         },
     },
     actions: {
@@ -91,6 +95,9 @@ export default new Vuex.Store({
         },
         logout: function (context) {
             return context.commit("logout");
+        },
+        changeLoadingStatusComments: function (context, payload) {
+            return context.commit("changeLoadingStatusComments", payload);
         },
     },
     modules: {},
