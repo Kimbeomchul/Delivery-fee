@@ -33,6 +33,10 @@ export default new Vuex.Store({
         changeParty: function (state, payload) {
             return (state.party = payload);
         },
+        editComment: function (state, payload) {
+            console.log(payload);
+            return (state.comments[payload["index"]].content = payload.content);
+        },
         changeComments: function (state, payload) {
             return (state.comments = payload);
         },
@@ -67,6 +71,9 @@ export default new Vuex.Store({
         },
         changeParty: function (context, payload) {
             return context.commit("changeParty", payload);
+        },
+        editComment: function (context, payload) {
+            return context.commit("editComment", payload);
         },
         changeComments: function (context, payload) {
             return context.commit("changeComments", payload);

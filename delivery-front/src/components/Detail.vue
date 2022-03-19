@@ -57,7 +57,10 @@
 
                         <v-list>
                             <v-list-item v-for="(item, i) in items" :key="i">
-                                <v-list-item-title v-text="item.title" @click.stop="handleItemAction(item.title)">
+                                <v-list-item-title
+                                    v-text="item.title"
+                                    @click.stop="handleItemAction(item.title, comment.content)"
+                                >
                                 </v-list-item-title>
                             </v-list-item>
                         </v-list>
@@ -85,6 +88,7 @@
                         </v-dialog>
 
                         <!-- edit comment dialog part -->
+
                         <v-dialog
                             v-model="editCommentDialog"
                             fullscreen
@@ -92,13 +96,14 @@
                             transition="dialog-bottom-transition"
                         >
                             <v-card>
-                                <v-toolbar>
+                                <v-toolbar elevation="0" dense>
                                     <v-btn icon style="color: #52d4dc" @click="editCommentDialog = false">
                                         <v-icon color="black">mdi-close</v-icon>
                                     </v-btn>
+                                    <v-spacer></v-spacer>
                                     <v-toolbar-title class="font-weight-black" style="color: #52d4dc"
-                                        >댓글 수정</v-toolbar-title
-                                    >
+                                        >댓글 수정
+                                    </v-toolbar-title>
                                     <v-spacer></v-spacer>
                                     <v-toolbar-items>
                                         <v-btn
@@ -106,20 +111,24 @@
                                             icon
                                             x-small
                                             elevation="0"
-                                            @click="changeComment(), (editCommentDialog = false)"
+                                            @click="editComment(comment.content, comment.id, index)"
                                             ><img width="24" height="24" src="@/assets/btn.png" alt="btn" />
                                         </v-btn>
                                     </v-toolbar-items>
                                 </v-toolbar>
-                                <v-textarea
-                                    name="input-7-1"
-                                    rows="7"
-                                    filled
-                                    no-resize
-                                    :rules="contentRules"
-                                    v-model="comment.content"
-                                    placeholder="댓글을 입력해주세요."
-                                ></v-textarea>
+
+                                <v-form ref="form" v-model="valid" lazy-validation>
+                                    <v-textarea
+                                        name="input-7-1"
+                                        rows="8"
+                                        filled
+                                        no-resize
+                                        v-model="editableComment"
+                                        :rules="contentRules"
+                                        placeholder="댓글을 입력해주세요."
+                                    >
+                                    </v-textarea>
+                                </v-form>
                             </v-card>
                         </v-dialog>
                     </v-menu>
@@ -151,13 +160,12 @@ export default {
     data: () => ({
         num: 7,
         page: "",
+        editableComment: "",
         deleteDialog: false,
         editCommentDialog: false,
         items: [{ title: "삭제" }, { title: "수정" }],
-        notifications: false,
-        sound: true,
-        widgets: false,
         contentRules: [(value) => !!value || "댓글을 입력해 주세요."],
+        valid: true,
     }),
     created: function () {
         this.getPartyDetail();
@@ -209,9 +217,10 @@ export default {
                 console.log(error);
             }
         },
-        handleItemAction(title) {
+        handleItemAction(title, content) {
             switch (title) {
                 case "수정":
+                    this.editableComment = content;
                     this.editCommentDialog = true;
                     break;
                 case "삭제":
@@ -241,18 +250,19 @@ export default {
                 "pushToComments"
             );
         },
-        changeComment: async function () {
+        editComment: async function (content, id, index) {
+            const validate = this.$refs.form[0].validate();
+            if (!validate) return;
+
             const data = {
-                content: this.comment,
-                party: this.$route.params.partyId,
-                user: this.userId,
+                content: this.editableComment,
             };
             try {
-                const result = await request(`/parties/${this.$route.params.partyId}/comments/`, "PATCH", data);
+                const result = await request(`/parties/${this.$route.params.partyId}/comments/${id}/`, "PATCH", data);
 
-                if (result.status == 201) {
-                    this.$store.dispatch("pushToComments", result.data);
-                    this.comment = "";
+                if (result.status == 200) {
+                    this.$store.dispatch("editComment", { index: index, content: this.editableComment });
+                    this.editCommentDialog = false;
                 } else {
                     console.log(result);
                 }
