@@ -83,28 +83,43 @@
                                 </v-card-actions>
                             </v-card>
                         </v-dialog>
-                        <v-dialog v-model="editDialog" max-width="300">
-                            <v-card>
-                                <v-card-title class="text-body2"> 파티를 수정하시겠습니까? </v-card-title>
-                                <v-card-text class="text-caption">
-                                    주문하고 싶은 시간은 현재시간 이후로만 설정할 수 있습니다.
-                                </v-card-text>
-                                <v-divider></v-divider>
 
-                                <v-card-actions>
-                                    <v-btn class="text-h5" color="green darken-1" text @click="editDialog = false">
-                                        아니요
+                        <!-- edit comment dialog part -->
+                        <v-dialog
+                            v-model="editCommentDialog"
+                            fullscreen
+                            hide-overlay
+                            transition="dialog-bottom-transition"
+                        >
+                            <v-card>
+                                <v-toolbar>
+                                    <v-btn icon style="color: #52d4dc" @click="editCommentDialog = false">
+                                        <v-icon color="black">mdi-close</v-icon>
                                     </v-btn>
-                                    <v-spacer></v-spacer>
-                                    <v-btn
-                                        class="text-h5 font-weight-bold"
-                                        color="green darken-1"
-                                        text
-                                        @click="goWrite()"
+                                    <v-toolbar-title class="font-weight-black" style="color: #52d4dc"
+                                        >댓글 수정</v-toolbar-title
                                     >
-                                        수정하기
-                                    </v-btn>
-                                </v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-toolbar-items>
+                                        <v-btn
+                                            class="pt-1"
+                                            icon
+                                            x-small
+                                            elevation="0"
+                                            @click="changeComment(), (editCommentDialog = false)"
+                                            ><img width="24" height="24" src="@/assets/btn.png" alt="btn" />
+                                        </v-btn>
+                                    </v-toolbar-items>
+                                </v-toolbar>
+                                <v-textarea
+                                    name="input-7-1"
+                                    rows="7"
+                                    filled
+                                    no-resize
+                                    :rules="contentRules"
+                                    v-model="comment.content"
+                                    placeholder="댓글을 입력해주세요."
+                                ></v-textarea>
                             </v-card>
                         </v-dialog>
                     </v-menu>
@@ -137,9 +152,12 @@ export default {
         num: 7,
         page: "",
         deleteDialog: false,
-        editDialog: false,
-        items: [{ title: "삭제" }, { title: "수정 (수정을 어느 창에서 해야할지?)" }],
-        //
+        editCommentDialog: false,
+        items: [{ title: "삭제" }, { title: "수정" }],
+        notifications: false,
+        sound: true,
+        widgets: false,
+        contentRules: [(value) => !!value || "댓글을 입력해 주세요."],
     }),
     created: function () {
         this.getPartyDetail();
@@ -194,7 +212,7 @@ export default {
         handleItemAction(title) {
             switch (title) {
                 case "수정":
-                    this.editDialog = true;
+                    this.editCommentDialog = true;
                     break;
                 case "삭제":
                     this.deleteDialog = true;
@@ -222,6 +240,25 @@ export default {
                 this.page,
                 "pushToComments"
             );
+        },
+        changeComment: async function () {
+            const data = {
+                content: this.comment,
+                party: this.$route.params.partyId,
+                user: this.userId,
+            };
+            try {
+                const result = await request(`/parties/${this.$route.params.partyId}/comments/`, "PATCH", data);
+
+                if (result.status == 201) {
+                    this.$store.dispatch("pushToComments", result.data);
+                    this.comment = "";
+                } else {
+                    console.log(result);
+                }
+            } catch (error) {
+                console.log(error);
+            }
         },
     },
 };
