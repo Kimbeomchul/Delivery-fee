@@ -138,12 +138,12 @@ export default {
     },
     data: () => ({
         num: 7,
-        page: "",
+        page: 1,
         //
     }),
     created: function () {
         this.addUserInfo();
-        this.getPartyList();
+        // this.getPartyList();
     },
     mounted: function () {},
     computed: {
@@ -196,7 +196,41 @@ export default {
             }
         },
         infiniteHandler: async function ($state) {
-            await InfiniteRequest($state, "/parties/", this.page, "pushToParties");
+            // await InfiniteRequest($state, "/parties/", this.page, "pushToParties");
+
+            const baseURL = "http://localhost:8000/api/v1";
+            const action = "/parties/";
+
+            await fetch(`${baseURL}${action}?page=` + this.page, {
+                method: "get",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${this.userInfo.access_token}`,
+                },
+            })
+                .then((resp) => {
+                    return resp.json();
+                })
+                .then((data) => {
+                    setTimeout(() => {
+                        if (data["results"]) {
+                            data["results"]["infinite"] = true;
+                            this.$store.dispatch("pushToParties", data["results"]);
+                            $state.loaded();
+                            this.page += 1;
+
+                            if (!data["next"]) {
+                                $state.complete();
+                            }
+                        } else {
+                            // 끝 지정(No more data)
+                            $state.complete();
+                        }
+                    }, 500);
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
         },
     },
 };
