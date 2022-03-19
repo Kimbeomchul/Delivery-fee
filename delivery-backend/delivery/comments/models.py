@@ -9,3 +9,6 @@ class Comment(Timestampable):
     content = models.TextField(help_text='댓글 내용')
     party = models.ForeignKey(Party, on_delete=models.CASCADE, help_text='댓글이 달린 파티')
     user = models.ForeignKey(User, on_delete=models.CASCADE, help_text='댓글 단 유저')
+    
+    class Meta:
+        ordering = ['-created_at']

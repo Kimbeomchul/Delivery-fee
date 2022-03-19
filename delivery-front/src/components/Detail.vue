@@ -48,7 +48,7 @@
                     </div>
                 </v-col>
                 <v-col cols="2">
-                    <v-menu bottom left v-if="userId == comment.user">
+                    <v-menu bottom left v-if="userInfo.user_id == comment.user">
                         <template #activator="{ on, attrs }">
                             <v-btn icon v-bind="attrs" v-on="on">
                                 <v-icon small>mdi-dots-vertical</v-icon>
@@ -159,7 +159,7 @@ export default {
     },
     data: () => ({
         num: 7,
-        page: "",
+        page: 2,
         editableComment: "",
         deleteDialog: false,
         editCommentDialog: false,
@@ -179,8 +179,8 @@ export default {
         comments() {
             return this.$store.state.comments;
         },
-        userId() {
-            return this.$store.state.userInfo.user_id;
+        userInfo() {
+            return this.$store.state.userInfo;
         },
     },
     methods: {
@@ -243,12 +243,51 @@ export default {
             }
         },
         infiniteHandler: async function ($state) {
-            await InfiniteRequest(
-                $state,
-                `/parties/${this.$route.params.partyId}/comments/`,
-                this.page,
-                "pushToComments"
-            );
+            // await InfiniteRequest(
+            //     $state,
+            //     `/parties/${this.$route.params.partyId}/comments/`,
+            //     this.page,
+            //     "pushToComments"
+            // );
+
+            // await InfiniteRequest($state, "/parties/", this.page, "pushToParties");
+            this.computePageOnRefresh();
+
+            const baseURL = "http://localhost:8000/api/v1";
+            const action = `/parties/${this.$route.params.partyId}/comments/`;
+
+            await fetch(`${baseURL}${action}?page=` + this.page, {
+                method: "get",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${this.userInfo.access_token}`,
+                },
+            })
+                .then((resp) => {
+                    return resp.json();
+                })
+                .then((data) => {
+                    setTimeout(() => {
+                        if (data["results"]) {
+                            console.log(data["results"]);
+                            data["results"]["infinite"] = true;
+                            this.$store.dispatch("pushToComments", data["results"]);
+                            $state.loaded();
+
+                            this.page += 1;
+
+                            if (!data["next"]) {
+                                $state.complete();
+                            }
+                        } else {
+                            // 끝 지정(No more data)
+                            $state.complete();
+                        }
+                    }, 500);
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
         },
         editComment: async function (content, id, index) {
             const validate = this.$refs.form[0].validate();
@@ -268,6 +307,12 @@ export default {
                 }
             } catch (error) {
                 console.log(error);
+            }
+        },
+        computePageOnRefresh() {
+            if (this.page > 2) {
+                const pageSize = 30;
+                this.page = Math.ceil(this.comments.length / pageSize) + 1;
             }
         },
     },
