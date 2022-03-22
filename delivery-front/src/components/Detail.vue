@@ -277,7 +277,6 @@ export default {
                             this.page += 1;
 
                             if (!data["next"]) {
-                                console.log($state.loaded, $state.complete);
                                 this.$store.dispatch("changeLoadingStatusComments", true);
                                 $state.complete();
                             }
