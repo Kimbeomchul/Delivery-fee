@@ -270,7 +270,6 @@ export default {
                 .then((data) => {
                     setTimeout(() => {
                         if (data["results"]) {
-                            console.log(data["results"]);
                             data["results"]["infinite"] = true;
                             this.$store.dispatch("pushToComments", data["results"]);
                             $state.loaded();
@@ -284,7 +283,6 @@ export default {
                             }
                         } else {
                             this.$store.dispatch("changeLoadingStatusComments", true);
-                            console.log($state.loaded, $state.complete);
                             // 끝 지정(No more data)
                             $state.complete();
                         }
