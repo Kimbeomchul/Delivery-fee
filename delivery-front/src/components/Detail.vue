@@ -146,7 +146,7 @@
 
 <script>
 import request from "@/request";
-import InfiniteRequest from "@/infinite-request";
+// import InfiniteRequest from "@/infinite-request";
 import InfiniteLoading from "vue-infinite-loading";
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
@@ -160,6 +160,7 @@ export default {
     data: () => ({
         num: 7,
         page: 2,
+        isNeedPagination: false,
         editableComment: "",
         deleteDialog: false,
         editCommentDialog: false,
@@ -209,7 +210,7 @@ export default {
                 const result = await request(`/parties/${this.$route.params.partyId}/comments/`, "GET");
                 if (result.status === 200) {
                     if (result.data["next"]) {
-                        this.page = 2;
+                        this.isNeedPagination = true;
                     }
                     this.$store.dispatch("changeComments", result.data["results"]);
                 } else {
@@ -252,6 +253,10 @@ export default {
             //     "pushToComments"
             // );
             // await InfiniteRequest($state, "/parties/", this.page, "pushToParties");
+            if (!this.isNeedPagination) {
+                $state.complete();
+                return;
+            }
             this.computePageOnRefresh();
 
             const baseURL = "http://localhost:8000/api/v1";

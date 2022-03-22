@@ -125,7 +125,7 @@
 
 <script>
 import request from "@/request";
-import InfiniteRequest from "@/infinite-request";
+// import InfiniteRequest from "@/infinite-request";
 import InfiniteLoading from "vue-infinite-loading";
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
@@ -138,12 +138,13 @@ export default {
     },
     data: () => ({
         num: 7,
-        page: 1,
+        page: 2,
+        isNeedPagination: false,
         //
     }),
     created: function () {
         this.addUserInfo();
-        // this.getPartyList();
+        this.getPartyList();
     },
     mounted: function () {},
     computed: {
@@ -185,7 +186,7 @@ export default {
 
                 if (result.status === 200) {
                     if (result.data["next"]) {
-                        this.page = 2;
+                        this.isNeedPagination = true;
                     }
                     this.$store.dispatch("changeParties", result.data["results"]);
                 } else {
@@ -197,6 +198,12 @@ export default {
         },
         infiniteHandler: async function ($state) {
             // await InfiniteRequest($state, "/parties/", this.page, "pushToParties");
+
+            if (!this.isNeedPagination) {
+                $state.complete();
+                return;
+            }
+            this.computePageOnRefresh();
 
             const baseURL = "http://localhost:8000/api/v1";
             const action = "/parties/";
@@ -220,9 +227,11 @@ export default {
                             this.page += 1;
 
                             if (!data["next"]) {
+                                this.$store.dispatch("changeLoadingStatusParties", true);
                                 $state.complete();
                             }
                         } else {
+                            this.$store.dispatch("changeLoadingStatusParties", true);
                             // 끝 지정(No more data)
                             $state.complete();
                         }
@@ -231,6 +240,12 @@ export default {
                 .catch((err) => {
                     console.error(err);
                 });
+        },
+        computePageOnRefresh() {
+            if (this.page > 2) {
+                const pageSize = 30;
+                this.page = Math.ceil(this.parties.length / pageSize) + 1;
+            }
         },
     },
 };

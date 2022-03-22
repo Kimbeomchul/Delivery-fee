@@ -45,6 +45,8 @@ export default {
             clearStorage.parties = [];
             clearStorage.party = [];
             clearStorage.comments = [];
+            clearStorage.isFullyLoadedComments = false;
+            clearStorage.isFullyLoadedParties = false;
 
             localStorage.setItem("vuex", JSON.stringify(clearStorage));
         },
