@@ -144,6 +144,7 @@ export default {
     }),
     created: function () {
         this.addUserInfo();
+        this.addParticipatedInfo();
         this.getPartyList();
     },
     mounted: function () {},
@@ -163,22 +164,22 @@ export default {
             return dayjs(time).format("HH시 mm분");
         },
         addUserInfo() {
-            if (!this.$store.state.userInfo) {
-                this.$store.dispatch("addUserInfo", this.$route.query);
+            if (this.$store.state.userInfo) return;
 
-                // clear query param
-                this.$router.push(this.$route.path).catch((err) => {
-                    // Ignore the vuex err regarding  navigating to the page they are already on.
-                    if (
-                        err.name !== "NavigationDuplicated" &&
-                        !err.message.includes("Avoided redundant navigation to current location")
-                    ) {
-                        // But print any other errors to the console
-                        console.log(err);
-                    }
-                });
-                // this.$router.replace({ query: null });
-            }
+            this.$store.dispatch("addUserInfo", this.$route.query);
+
+            // clear query param
+            this.$router.push(this.$route.path).catch((err) => {
+                // Ignore the vuex err regarding  navigating to the page they are already on.
+                if (
+                    err.name !== "NavigationDuplicated" &&
+                    !err.message.includes("Avoided redundant navigation to current location")
+                ) {
+                    // But print any other errors to the console
+                    console.log(err);
+                }
+            });
+            // this.$router.replace({ query: null });
         },
         getPartyList: async function () {
             try {
@@ -245,6 +246,21 @@ export default {
             if (this.page > 2) {
                 const pageSize = 30;
                 this.page = Math.ceil(this.parties.length / pageSize) + 1;
+            }
+        },
+        addParticipatedInfo: async function () {
+            if (this.$store.state.userInfo.participant) return;
+
+            try {
+                const result = await request(`/users/${this.userInfo.user_id}/`, "GET");
+                if (result.status === 200) {
+                    const { id, party } = result.data.participant;
+                    this.$store.dispatch("pushParticipationStatus", { id: id, party: party });
+                } else {
+                    console.log(result);
+                }
+            } catch (error) {
+                console.log(error);
             }
         },
     },

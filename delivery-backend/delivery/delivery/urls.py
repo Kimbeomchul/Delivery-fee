@@ -20,9 +20,11 @@ from rest_framework_nested.routers import DefaultRouter, NestedDefaultRouter
 
 from comments.views import CommentViewSet
 from parties.views import PartyViewSet, ParticipantViewSet
+from users.views import UserViewSet
 
 root_router = DefaultRouter()
 root_router.register('parties', PartyViewSet)
+root_router.register('users', UserViewSet)
 
 comments_router = NestedDefaultRouter(root_router, 'parties', lookup='party')
 comments_router.register('comments', CommentViewSet)
