@@ -73,6 +73,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.kakao',
     'taggit',
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -185,6 +186,7 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 30,
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 REST_USE_JWT = True
@@ -194,4 +196,11 @@ JWT_AUTH_REFRESH_COOKIE = 'delivery-refresh-token'
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=14),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': '배달비 공유 API',
+    'DESCRIPTION': '배달비 공유 API 문서입니다.',
+    'VERSION': '1.0.0',
+    # OTHER SETTINGS
 }

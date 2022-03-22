@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
+from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 from rest_framework_nested.routers import DefaultRouter, NestedDefaultRouter
 
 from comments.views import CommentViewSet
@@ -41,5 +41,10 @@ urlpatterns = [
     path('api/v1/', include(participants_router.urls)),
     path('api/v1/auth/', include('authentication.urls')),
     path('api/v1/auth/', include('dj_rest_auth.urls')),
-    path('api/v1/auth/', include('allauth.urls')),   
+    path('api/v1/auth/', include('allauth.urls')),
+    # Swagger:
+    path('api/v1/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('api/v1/schema/swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('api/v1/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+
 ]
