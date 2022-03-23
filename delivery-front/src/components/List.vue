@@ -55,7 +55,7 @@
                             class="grey--text text--darken-1 font-weight-medium pr-4"
                             style="font-size: 0.8em; text-align: right"
                         >
-                            108m
+                            {{ userInfo.participated.party.user_name }}, 108m
                         </div>
                     </v-col>
                 </v-row>
@@ -110,7 +110,7 @@
                             class="grey--text text--darken-1 font-weight-medium pr-4"
                             style="font-size: 0.8em; text-align: right"
                         >
-                            108m
+                            {{ userInfo.participated.party.user_name }}, 108m
                         </div>
                     </v-col>
                 </v-row>
