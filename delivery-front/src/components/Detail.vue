@@ -43,7 +43,7 @@
             <v-row>
                 <v-col cols="10">
                     <div class="font-weight-black text-body-2">
-                        {{ comment.user }} -> 임시로 유저 아이디lklklkl
+                        {{ comment.user_name }}
                         <span class="text-caption">· {{ computeHowmanyTimeAgo(comment.created_at) }}</span>
                     </div>
                 </v-col>
