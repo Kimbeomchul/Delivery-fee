@@ -125,7 +125,7 @@ export default {
         editDialog: false,
         enterDialog: false,
         exitDialog: false,
-        items: [{ title: "삭제" }, { title: "수정" }, { title: "나가기" }, { title: "참가하기" }, { title: "내정보" }],
+        items: [{ title: "삭제" }, { title: "수정" }, { title: "나가기" }, { title: "참가하기" }, { title: "내 정보" }],
     }),
     computed: {
         party() {
@@ -227,7 +227,7 @@ export default {
                 case "참가하기":
                     this.enterDialog = true;
                     break;
-                case "내정보":
+                case "내 정보":
                     this.$router.push({ name: "profile" });
                     break;
             }
@@ -248,7 +248,7 @@ export default {
                         return true;
                     }
                 } else {
-                    if (item.title == "내정보") {
+                    if (item.title == "내 정보") {
                         return true;
                     }
                 }
