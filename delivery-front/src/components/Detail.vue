@@ -43,8 +43,8 @@
             <v-row>
                 <v-col cols="10">
                     <div class="font-weight-black text-body-2">
-                        {{ comment.user }} -> 임시로 유저 아이디
-                        <span class="text-caption">· 43분전 </span>
+                        {{ comment.user }} -> 임시로 유저 아이디lklklkl
+                        <span class="text-caption">· {{ computeHowmanyTimeAgo(comment.created_at) }}</span>
                     </div>
                 </v-col>
                 <v-col cols="2">
@@ -192,6 +192,21 @@ export default {
         },
         datetimeToReadable(time) {
             return dayjs(time).format("HH시 mm분");
+        },
+        computeHowmanyTimeAgo(time) {
+            const nowDate = dayjs();
+            let diffMinute = nowDate.diff(time, "minute");
+
+            if (diffMinute >= 60 && diffMinute < 1440) {
+                diffMinute = Math.floor(diffMinute / 60);
+                return diffMinute + "시간전";
+            } else if (diffMinute >= 1440) {
+                console.log("asdf");
+                diffMinute = Math.floor(diffMinute / 1440);
+                return diffMinute + "일전";
+            }
+
+            return diffMinute + "분전";
         },
         getPartyDetail: async function () {
             try {
