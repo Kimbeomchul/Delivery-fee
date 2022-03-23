@@ -254,8 +254,10 @@ export default {
             try {
                 const result = await request(`/users/${this.userInfo.user_id}/`, "GET");
                 if (result.status === 200) {
-                    const { id, party } = result.data.participant;
-                    this.$store.dispatch("pushParticipationStatus", { id: id, party: party });
+                    if (result.data.participant) {
+                        const { id, party } = result.data.participant;
+                        this.$store.dispatch("pushParticipationStatus", { id: id, party: party });
+                    }
                 } else {
                     console.log(result);
                 }
