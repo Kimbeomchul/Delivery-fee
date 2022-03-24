@@ -3,7 +3,7 @@
         <div>
             <v-row>
                 <v-col cols="8" class="text-right">
-                    <div class="font-weight-black pt-4 pr-4" style="font-size: 1.2em">
+                    <div class="font-weight-black pr-4" style="font-size: 1.2em">
                         {{ party.title }}
                     </div>
 
@@ -21,8 +21,9 @@
                         <v-icon color="#52D4DC" small>mdi-map-marker-radius-outline</v-icon>
                         제주도 제주시 해안동
                     </div>
+                    <br />
                     <div
-                        class="grey--text text--darken-1 font-weight-medium pr-4 pt-3"
+                        class="grey--text text--darken-1 font-weight-medium pr-4 pt-1"
                         style="font-size: 0.8em; text-align: right"
                     >
                         {{ party.user_name }}, 108m
