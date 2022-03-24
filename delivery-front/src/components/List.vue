@@ -118,7 +118,7 @@
         </div>
         <infinite-loading @infinite="infiniteHandler" spinner="waveDots">
             <div slot="no-more"></div>
-            <div slot="no-results">아직 파티가 없습니다. 파티를 생성해보세요.</div>
+            <div slot="no-results"></div>
         </infinite-loading>
     </div>
 </template>
