@@ -95,7 +95,7 @@ def google_callback(request):
         user_id = accept_json['user']['pk']
         user_name = User.objects.get(id=user_id).name
         
-        return redirect(f"http://localhost:8080/list/?access_token={access_token}&refresh_token={refresh_token}&user_id={user_id}&username={user_name}")
+        return redirect(f"http://localhost:8080/list/?access_token={access_token}&refresh_token={refresh_token}&user_id={user_id}&user_name={user_name}")
     except User.DoesNotExist:
         # 기존에 가입된 유저가 없으면 새로 가입
         data = {'access_token': access_token, 'code': code}
