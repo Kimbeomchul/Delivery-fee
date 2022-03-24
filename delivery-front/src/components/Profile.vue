@@ -5,7 +5,7 @@
                 <v-avatar color="grey lighten-2" size="45"><v-icon size="55">mdi-account-circle</v-icon></v-avatar>
             </v-col>
             <v-col cols="10">
-                <p class="text-h5 text-right">거친 빽뺵도요님</p>
+                <p class="text-h5 text-right">{{ userInfo.user_name }}님</p>
             </v-col>
         </v-row>
         <v-divider class="mt-3 mb-3"></v-divider>
@@ -30,7 +30,11 @@ export default {
     }),
     created: function () {},
     mounted: function () {},
-    computed: {},
+    computed: {
+        userInfo() {
+            return this.$store.state.userInfo;
+        },
+    },
     methods: {
         logout() {
             this.$store.dispatch("logout").then(() => {
