@@ -7,16 +7,25 @@
                         {{ party.title }}
                     </div>
 
-                    <div class="grey--text font-weight-bold pr-4" style="font-size: 0.8em; text-align: right">
+                    <div
+                        class="grey--text text--darken-1 font-weight-bold pr-4 pt-2"
+                        style="font-size: 0.8em; text-align: right"
+                    >
                         {{ tagsToReadable(party.tags) }}
                     </div>
 
-                    <div class="grey--text font-weight-bold pr-4" style="font-size: 0.8em; text-align: right">
+                    <div
+                        class="grey--text text--darken-1 font-weight-bold pr-4 pt-1"
+                        style="font-size: 0.8em; text-align: right"
+                    >
+                        <v-icon color="#52D4DC" small>mdi-map-marker-radius-outline</v-icon>
                         제주도 제주시 해안동
                     </div>
-
-                    <div class="grey--text font-weight-medium pr-4" style="font-size: 0.8em; text-align: right">
-                        108m
+                    <div
+                        class="grey--text text--darken-1 font-weight-medium pr-4 pt-3"
+                        style="font-size: 0.8em; text-align: right"
+                    >
+                        {{ party.user_name }}, 108m
                     </div>
                 </v-col>
                 <v-col cols="4" class="pt-4">
