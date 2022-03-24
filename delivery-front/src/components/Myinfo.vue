@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-app-bar myinfo-component dense flat>
+        <v-app-bar elevation="0" color="white" dense class="shrink">
             <v-row>
                 <v-col cols="2" class="pl-0 pr-0 d-flex justify-start">
                     <v-btn v-if="$route.name !== 'list'" @click="$router.go(-1)" color="#52D4DC" icon>
@@ -28,7 +28,7 @@
                 style="font-size: 1.02em"
                 @click="editName()"
             >
-                닉네임 설정 완료
+                설정하기
             </v-btn>
         </v-container>
     </div>
@@ -56,8 +56,6 @@ export default {
             };
             try {
                 const result = await request(`/users/${this.$store.state.userInfo.user_id}/`, "PATCH", data);
-
-                console.log(result.status);
 
                 if (result.status === 200) {
                     this.$store.dispatch("editName", result.data.name);

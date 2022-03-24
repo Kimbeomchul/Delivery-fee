@@ -9,10 +9,12 @@
             </v-col>
         </v-row>
         <v-divider class="mt-3 mb-3"></v-divider>
-        <div class="d-flex justify-space-between">
-            <div class="text-body-1 text--primary"><v-icon color="#52D4DC">mdi-account</v-icon> 프로필 설정</div>
-            <v-btn small icon color="#52D4DC" :to="{ name: 'myinfo' }"><v-icon>mdi-chevron-right </v-icon></v-btn>
-        </div>
+        <router-link :to="{ name: 'myinfo' }" style="text-decoration: none">
+            <div class="d-flex justify-space-between">
+                <div class="text-body-1 text--primary"><v-icon color="#52D4DC">mdi-account</v-icon> 프로필 설정</div>
+                <v-btn small icon color="#52D4DC" :to="{ name: 'myinfo' }"><v-icon>mdi-chevron-right </v-icon></v-btn>
+            </div>
+        </router-link>
         <v-divider class="mt-3 mb-3"></v-divider>
         <div class="text-body-1 text--primary"><v-icon color="#52D4DC">mdi-file-sign</v-icon> 약관 및 정책</div>
         <v-divider class="mt-3 mb-3"></v-divider>
