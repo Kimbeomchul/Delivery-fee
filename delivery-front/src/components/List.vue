@@ -55,7 +55,7 @@
                             class="grey--text text--darken-1 font-weight-medium pr-4 pt-1"
                             style="font-size: 0.8em; text-align: right"
                         >
-                            {{ userInfo.participated.party.user_name }}, 108m
+                            {{ userInfo.participated.party.nickname }}, 108m
                         </div>
                     </v-col>
                 </v-row>
@@ -110,7 +110,7 @@
                             class="grey--text text--darken-1 font-weight-medium pr-4 pt-1"
                             style="font-size: 0.8em; text-align: right"
                         >
-                            {{ party.user_name }}, 108m
+                            {{ party.nickname }}, 108m
                         </div>
                     </v-col>
                 </v-row>
@@ -164,8 +164,11 @@ export default {
             return dayjs(time).format("HH시 mm분");
         },
         addUserInfo() {
-            if (this.$store.state.userInfo) return;
-
+            console.log(this.$route.query.user_id);
+            if (this.$store.state.userInfo?.user_id === this.$route.query.user_id) {
+                this.$router.push(this.$route.path);
+                return;
+            }
             this.$store.dispatch("addUserInfo", this.$route.query);
 
             // clear query param

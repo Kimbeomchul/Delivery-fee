@@ -26,7 +26,7 @@
                         class="grey--text text--darken-1 font-weight-medium pr-4 pt-1"
                         style="font-size: 0.8em; text-align: right"
                     >
-                        {{ party.user_name }}, 108m
+                        {{ party.nickname }}, 108m
                     </div>
                 </v-col>
                 <v-col cols="4" class="pt-4">
@@ -53,7 +53,7 @@
             <v-row>
                 <v-col cols="10">
                     <div class="font-weight-black text-body-2">
-                        {{ comment.user_name }}
+                        {{ comment.nickname }}
                         <span class="text-caption">· {{ computeHowmanyTimeAgo(comment.created_at) }}</span>
                     </div>
                 </v-col>

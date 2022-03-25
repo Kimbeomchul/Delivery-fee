@@ -15,7 +15,13 @@
         </v-app-bar>
         <v-container class="spacing-playground pa-4">
             <v-form ref="form" v-model="valid" lazy-validation>
-                <v-text-field v-model="name" :counter="10" :rules="nameRules" label="닉네임" required></v-text-field>
+                <v-text-field
+                    v-model="nickname"
+                    :counter="10"
+                    :rules="nicknameRules"
+                    label="닉네임"
+                    required
+                ></v-text-field>
             </v-form>
             <v-btn
                 v-if="!$route.query.edit"
@@ -26,7 +32,7 @@
                 dark
                 class="font-weight-bold mt-5"
                 style="font-size: 1.02em"
-                @click="editName()"
+                @click="editNickname()"
             >
                 설정하기
             </v-btn>
@@ -40,25 +46,25 @@ export default {
     name: "myinfo-component",
     data: () => ({
         valid: true,
-        name: "",
-        nameRules: [
+        nickname: "",
+        nicknameRules: [
             (value) => !!value || "닉네임은 필수 입력 항목입니다.",
             (value) => (value && value.length <= 10) || "닉네임은 10자까지 입력할 수 있습니다.",
         ],
     }),
     methods: {
-        editName: async function () {
+        editNickname: async function () {
             const validate = this.$refs.form.validate();
             if (!validate) return;
 
             const data = {
-                name: this.name,
+                nickname: this.nickname,
             };
             try {
                 const result = await request(`/users/${this.$store.state.userInfo.user_id}/`, "PATCH", data);
 
                 if (result.status === 200) {
-                    this.$store.dispatch("editName", result.data.name);
+                    this.$store.dispatch("editNickname", result.data.nickname);
                     this.$router.go(-1);
                 } else {
                     console.log(result);
