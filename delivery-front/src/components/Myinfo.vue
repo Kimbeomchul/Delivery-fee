@@ -15,13 +15,8 @@
         </v-app-bar>
         <v-container class="spacing-playground pa-4">
             <v-form ref="form" v-model="valid" lazy-validation>
-                <v-text-field
-                    v-model="nickname"
-                    :counter="10"
-                    :rules="nicknameRules"
-                    label="닉네임"
-                    required
-                ></v-text-field>
+                <v-text-field v-model="nickname" :counter="10" :rules="nicknameRules" label="닉네임" required clearable>
+                </v-text-field>
             </v-form>
             <v-btn
                 v-if="!$route.query.edit"
@@ -52,6 +47,14 @@ export default {
             (value) => (value && value.length <= 10) || "닉네임은 10자까지 입력할 수 있습니다.",
         ],
     }),
+    created: function () {
+        this.nickname = this.userInfo.nickname;
+    },
+    computed: {
+        userInfo() {
+            return this.$store.state.userInfo;
+        },
+    },
     methods: {
         editNickname: async function () {
             const validate = this.$refs.form.validate();
