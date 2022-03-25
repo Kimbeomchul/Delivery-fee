@@ -164,8 +164,7 @@ export default {
             return dayjs(time).format("HH시 mm분");
         },
         addUserInfo() {
-            console.log(this.$route.query.user_id);
-            if (this.$store.state.userInfo?.user_id === this.$route.query.user_id) {
+            if (this.$store.state.userInfo) {
                 this.$router.push(this.$route.path);
                 return;
             }
