@@ -1,47 +1,55 @@
 <template>
     <div>
-        <div>
-            <v-row>
-                <v-col cols="8" class="text-right">
-                    <div class="font-weight-black pr-4" style="font-size: 1.2em">
-                        {{ party.title }}
-                    </div>
+        <v-row>
+            <v-col cols="8" class="text-right">
+                <div class="font-weight-black pr-4" style="font-size: 1.2em">
+                    {{ party.title }}
+                </div>
 
-                    <div
-                        class="grey--text text--darken-1 font-weight-bold pr-4 pt-2"
-                        style="font-size: 0.8em; text-align: right"
-                    >
-                        {{ tagsToReadable(party.tags) }}
-                    </div>
+                <div
+                    class="grey--text text--darken-1 font-weight-bold pr-4 pt-2"
+                    style="font-size: 0.8em; text-align: right"
+                >
+                    {{ tagsToReadable(party.tags) }}
+                </div>
 
-                    <div
-                        class="grey--text text--darken-1 font-weight-bold pr-4 pt-1"
-                        style="font-size: 0.8em; text-align: right"
-                    >
-                        <v-icon color="#52D4DC" small>mdi-map-marker-radius-outline</v-icon>
-                        제주도 제주시 해안동
-                    </div>
-                    <br />
-                    <div
-                        class="grey--text text--darken-1 font-weight-medium pr-4 pt-1"
-                        style="font-size: 0.8em; text-align: right"
-                    >
-                        {{ party.nickname }}, 108m
-                    </div>
-                </v-col>
-                <v-col cols="4" class="pt-4">
-                    <v-img
-                        class="rounded-lg"
-                        width="100"
-                        height="100"
-                        src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-                    ></v-img>
-                    <div class="text-center pt-1 font-weight-black">
-                        {{ datetimeToReadable(party.order_time) }}
-                    </div>
-                </v-col>
-            </v-row>
-        </div>
+                <div
+                    class="grey--text text--darken-1 font-weight-bold pr-4 pt-1"
+                    style="font-size: 0.8em; text-align: right"
+                >
+                    <v-icon color="#52D4DC" small>mdi-map-marker-radius-outline</v-icon>
+                    제주도 제주시 해안동
+                </div>
+                <br />
+                <div
+                    class="grey--text text--darken-1 font-weight-medium pr-4 pt-1"
+                    style="font-size: 0.8em; text-align: right"
+                >
+                    {{ party.nickname }}, 108m
+                </div>
+            </v-col>
+            <v-col cols="4" class="pt-4">
+                <v-img
+                    class="rounded-lg"
+                    width="100"
+                    height="100"
+                    src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+                ></v-img>
+                <div class="text-center pt-1 font-weight-black">
+                    {{ datetimeToReadable(party.order_time) }}
+                </div>
+            </v-col>
+        </v-row>
+
+        <div class="pt-1 font-weight-black" style="color: #52d4dc">참여자</div>
+        <v-expansion-panels flat accordion>
+            <v-expansion-panel v-for="(item, i) in 1" :key="i">
+                <v-expansion-panel-header class="pa-0">치킨사냥 외 2명</v-expansion-panel-header>
+                <v-expansion-panel-content id="expansion-panel-content-1">
+                    치킨사냥1, 치킨사냥2, 치킨냠냠3, 치킨444, 치킨사냥2, 치킨냠냠3, 치킨444, 치킨사냥2
+                </v-expansion-panel-content>
+            </v-expansion-panel>
+        </v-expansion-panels>
 
         <div class="pt-1 font-weight-black" style="color: #52d4dc">내용</div>
         <v-text-field class="text-center" readonly :value="party.content"></v-text-field>
@@ -350,3 +358,12 @@ export default {
     },
 };
 </script>
+
+<style>
+#expansion-panel-content-1 > * {
+    padding-top: 0px;
+    padding-right: 12px;
+    padding-bottom: 12px;
+    padding-left: 12px;
+}
+</style>
