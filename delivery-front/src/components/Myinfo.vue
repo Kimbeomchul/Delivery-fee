@@ -17,7 +17,6 @@
             <v-form ref="form" v-model="valid" lazy-validation>
                 <v-text-field v-model="nickname" :counter="10" :rules="nicknameRules" label="닉네임" required clearable>
                 </v-text-field>
-                <div class="text-caption">이미 존재하는 닉네임입니다. 다른 닉네임을 입력해주세요.</div>
             </v-form>
             <v-btn
                 v-if="!$route.query.edit"
@@ -70,6 +69,8 @@ export default {
                 if (result.status === 200) {
                     this.$store.dispatch("editNickname", result.data.nickname);
                     this.$router.go(-1);
+                } else if (result.status === 400) {
+                    this.$toast.error("이미 존재하는 닉네임입니다. 다른 닉네임을 입력해주세요.");
                 } else {
                     console.log(result);
                 }
