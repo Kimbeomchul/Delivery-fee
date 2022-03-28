@@ -17,6 +17,8 @@
                 elevation="10"
                 outline
                 height="150"
+                :ripple="{ center: true }"
+                style="color: #52d4dc"
             >
                 <v-row>
                     <v-col cols="4" class="pt-3 pl-6 pr-0">
@@ -26,13 +28,13 @@
                             height="100"
                             src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
                         ></v-img>
-                        <div class="pl-4 pt-1 font-weight-black">
+                        <div class="black--text pl-4 pt-1 font-weight-black">
                             {{ datetimeToReadable(userInfo.participated.party.order_time) }}
                         </div>
                     </v-col>
 
                     <v-col cols="8" class="text-left">
-                        <div class="font-weight-black pr-4 text-right" style="font-size: 1.2em">
+                        <div class="black--text font-weight-black pr-4 text-right" style="font-size: 1.2em">
                             {{ userInfo.participated.party.title }}
                         </div>
 
@@ -72,6 +74,8 @@
                 elevation="2"
                 outline
                 height="150"
+                :ripple="{ center: true }"
+                style="color: #52d4dc"
             >
                 <v-row>
                     <v-col cols="4" class="pt-3 pl-6 pr-0">
@@ -81,13 +85,13 @@
                             height="100"
                             src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
                         ></v-img>
-                        <div class="pl-4 pt-1 font-weight-black">
+                        <div class="black--text pl-4 pt-1 font-weight-black">
                             {{ datetimeToReadable(party.order_time) }}
                         </div>
                     </v-col>
 
                     <v-col cols="8" class="text-left">
-                        <div class="font-weight-black pr-4 text-right" style="font-size: 1.2em">
+                        <div class="black--text font-weight-black pr-4 text-right" style="font-size: 1.2em">
                             {{ party.title }}
                         </div>
 
