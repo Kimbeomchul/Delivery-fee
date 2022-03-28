@@ -165,23 +165,11 @@ export default {
         },
         addUserInfo() {
             if (this.$store.state.userInfo) {
-                this.$router.push(this.$route.path);
+                this.clearQueryParam();
                 return;
             }
             this.$store.dispatch("addUserInfo", this.$route.query);
-
-            // clear query param
-            this.$router.push(this.$route.path).catch((err) => {
-                // Ignore the vuex err regarding  navigating to the page they are already on.
-                if (
-                    err.name !== "NavigationDuplicated" &&
-                    !err.message.includes("Avoided redundant navigation to current location")
-                ) {
-                    // But print any other errors to the console
-                    console.log(err);
-                }
-            });
-            // this.$router.replace({ query: null });
+            this.clearQueryParam();
         },
         getPartyList: async function () {
             try {
@@ -266,6 +254,18 @@ export default {
             } catch (error) {
                 console.log(error);
             }
+        },
+        clearQueryParam() {
+            this.$router.push(this.$route.path).catch((err) => {
+                // Ignore the vuex err regarding  navigating to the page they are already on.
+                if (
+                    err.name !== "NavigationDuplicated" &&
+                    !err.message.includes("Avoided redundant navigation to current location")
+                ) {
+                    // But print any other errors to the console
+                    console.log(err);
+                }
+            });
         },
     },
 };
