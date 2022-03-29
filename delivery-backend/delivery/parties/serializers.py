@@ -17,6 +17,7 @@ class PartySerializer(TaggitSerializer, DisableUpdateUserMixin, serializers.Mode
         return obj.user.nickname
         
 class ParticipantsSerializer(DisableUpdateUserMixin, serializers.ModelSerializer):
+    nickname = serializers.SerializerMethodField()
     class Meta:
         model = Participant
         fields = '__all__'
@@ -25,3 +26,6 @@ class ParticipantsSerializer(DisableUpdateUserMixin, serializers.ModelSerializer
         response = super().to_representation(instance)
         response['party'] = PartySerializer(instance.party).data
         return response
+
+    def get_nickname(self, obj):
+        return obj.user.nickname

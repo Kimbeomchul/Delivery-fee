@@ -43,10 +43,15 @@
 
         <div class="pt-1 font-weight-black" style="color: #52d4dc">참여자</div>
         <v-expansion-panels flat accordion>
-            <v-expansion-panel v-for="(item, i) in 1" :key="i">
-                <v-expansion-panel-header class="pa-0">치킨사냥 외 2명</v-expansion-panel-header>
+            <v-expansion-panel @click="onExpansionPanelClick">
+                <v-expansion-panel-header class="pa-0">
+                    {{ party.nickname }} 외 {{ participants.length - 1 }}명
+                    <template v-slot:actions>
+                        <v-icon color="#52d4dc"> $expand </v-icon>
+                    </template>
+                </v-expansion-panel-header>
                 <v-expansion-panel-content id="expansion-panel-content-1">
-                    치킨사냥1, 치킨사냥2, 치킨냠냠3, 치킨444, 치킨사냥2, 치킨냠냠3, 치킨444, 치킨사냥2
+                    {{ participantsToReadable }}
                 </v-expansion-panel-content>
             </v-expansion-panel>
         </v-expansion-panels>
@@ -185,10 +190,12 @@ export default {
         items: [{ title: "삭제" }, { title: "수정" }],
         contentRules: [(value) => !!value || "댓글을 입력해 주세요."],
         valid: true,
+        participants: [],
     }),
     created: function () {
         this.getPartyDetail();
         this.getCommentList();
+        this.getParticipants();
 
         this.$store.dispatch("changeLoadingStatusComments", false);
     },
@@ -202,6 +209,9 @@ export default {
         },
         userInfo() {
             return this.$store.state.userInfo;
+        },
+        participantsToReadable() {
+            return this.participants.join(", ");
         },
     },
     methods: {
@@ -353,6 +363,29 @@ export default {
             if (this.page > 2) {
                 const pageSize = 30;
                 this.page = Math.ceil(this.comments.length / pageSize) + 1;
+            }
+        },
+        getParticipants: async function () {
+            try {
+                const result = await request(`/parties/${this.$route.params.partyId}/participants/`, "GET");
+                if (result.status === 200) {
+                    let participantsSet = new Set();
+                    result.data["results"].map(({ nickname }, idx) => participantsSet.add(nickname));
+
+                    this.participants = [...participantsSet];
+                } else {
+                    console.log(result);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        onExpansionPanelClick(event) {
+            if (event.currentTarget.classList.contains("v-expansion-panel-header--active")) {
+                console.log("Panel is closing/now closed.");
+            } else {
+                this.getParticipants();
+                console.log("Panel is opening/now open.");
             }
         },
     },
