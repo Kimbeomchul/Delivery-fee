@@ -117,7 +117,7 @@
                                     <v-spacer></v-spacer>
                                     <v-toolbar-items>
                                         <v-btn
-                                            class="pt-1"
+                                            class="pt-1 ml-3"
                                             icon
                                             x-small
                                             elevation="0"

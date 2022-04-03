@@ -8,22 +8,26 @@
                 <p class="text-h5 text-right">{{ userInfo.user_name }}님</p>
             </v-col>
         </v-row>
-        <v-divider class="mt-3 mb-3"></v-divider>
+        <v-divider></v-divider>
         <router-link :to="{ name: 'myinfo' }" style="text-decoration: none">
-            <div class="d-flex justify-space-between">
+            <div v-ripple class="d-flex justify-space-between pt-3 pb-3">
                 <div class="text-body-1 text--primary"><v-icon color="#52D4DC">mdi-account</v-icon> 프로필 설정</div>
                 <v-btn small icon color="#52D4DC" :to="{ name: 'myinfo' }"><v-icon>mdi-chevron-right </v-icon></v-btn>
             </div>
         </router-link>
-        <v-divider class="mt-3 mb-3"></v-divider>
-        <div class="text-body-1 text--primary"><v-icon color="#52D4DC">mdi-file-sign</v-icon> 약관 및 정책</div>
-        <v-divider class="mt-3 mb-3"></v-divider>
-        <div class="text-body-1 text--primary" @click="logout()">
+        <v-divider></v-divider>
+        <div v-ripple class="text-body-1 text--primary pt-3 pb-3">
+            <v-icon color="#52D4DC">mdi-file-sign</v-icon> 약관 및 정책
+        </div>
+        <v-divider></v-divider>
+        <div v-ripple class="text-body-1 text--primary pt-3 pb-3" @click="logout()">
             <v-icon color="#52D4DC">mdi-logout</v-icon> 로그아웃
         </div>
-        <v-divider class="mt-3 mb-3"></v-divider>
-        <div class="text-body-1 text--primary"><v-icon color="#52D4DC">mdi-account-off</v-icon> 회원탈퇴</div>
-        <v-divider class="mt-3 mb-3"></v-divider>
+        <v-divider></v-divider>
+        <div v-ripple class="text-body-1 text--primary pt-3 pb-3">
+            <v-icon color="#52D4DC">mdi-account-off</v-icon> 회원탈퇴
+        </div>
+        <v-divider></v-divider>
     </div>
 </template>
 
