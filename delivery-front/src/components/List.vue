@@ -17,6 +17,8 @@
                 elevation="10"
                 outline
                 height="150"
+                :ripple="{ center: true }"
+                style="color: #52d4dc"
             >
                 <v-row>
                     <v-col cols="4" class="pt-3 pl-6 pr-0">
@@ -26,13 +28,13 @@
                             height="100"
                             src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
                         ></v-img>
-                        <div class="pl-4 pt-1 font-weight-black">
+                        <div class="black--text pl-4 pt-1 font-weight-black">
                             {{ datetimeToReadable(userInfo.participated.party.order_time) }}
                         </div>
                     </v-col>
 
                     <v-col cols="8" class="text-left">
-                        <div class="font-weight-black pr-4 text-right" style="font-size: 1.2em">
+                        <div class="black--text font-weight-black pr-4 text-right" style="font-size: 1.2em">
                             {{ userInfo.participated.party.title }}
                         </div>
 
@@ -55,7 +57,7 @@
                             class="grey--text text--darken-1 font-weight-medium pr-4 pt-1"
                             style="font-size: 0.8em; text-align: right"
                         >
-                            {{ userInfo.participated.party.user_name }}, 108m
+                            {{ userInfo.participated.party.nickname }}, 108m
                         </div>
                     </v-col>
                 </v-row>
@@ -72,6 +74,8 @@
                 elevation="2"
                 outline
                 height="150"
+                :ripple="{ center: true }"
+                style="color: #52d4dc"
             >
                 <v-row>
                     <v-col cols="4" class="pt-3 pl-6 pr-0">
@@ -81,13 +85,13 @@
                             height="100"
                             src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
                         ></v-img>
-                        <div class="pl-4 pt-1 font-weight-black">
+                        <div class="black--text pl-4 pt-1 font-weight-black">
                             {{ datetimeToReadable(party.order_time) }}
                         </div>
                     </v-col>
 
                     <v-col cols="8" class="text-left">
-                        <div class="font-weight-black pr-4 text-right" style="font-size: 1.2em">
+                        <div class="black--text font-weight-black pr-4 text-right" style="font-size: 1.2em">
                             {{ party.title }}
                         </div>
 
@@ -110,7 +114,7 @@
                             class="grey--text text--darken-1 font-weight-medium pr-4 pt-1"
                             style="font-size: 0.8em; text-align: right"
                         >
-                            {{ party.user_name }}, 108m
+                            {{ party.nickname }}, 108m
                         </div>
                     </v-col>
                 </v-row>
@@ -118,7 +122,7 @@
         </div>
         <infinite-loading @infinite="infiniteHandler" spinner="waveDots">
             <div slot="no-more"></div>
-            <div slot="no-results">아직 파티가 없습니다. 파티를 생성해보세요.</div>
+            <div slot="no-results"></div>
         </infinite-loading>
     </div>
 </template>
@@ -164,22 +168,12 @@ export default {
             return dayjs(time).format("HH시 mm분");
         },
         addUserInfo() {
-            if (this.$store.state.userInfo) return;
-
+            if (this.$store.state.userInfo) {
+                this.clearQueryParam();
+                return;
+            }
             this.$store.dispatch("addUserInfo", this.$route.query);
-
-            // clear query param
-            this.$router.push(this.$route.path).catch((err) => {
-                // Ignore the vuex err regarding  navigating to the page they are already on.
-                if (
-                    err.name !== "NavigationDuplicated" &&
-                    !err.message.includes("Avoided redundant navigation to current location")
-                ) {
-                    // But print any other errors to the console
-                    console.log(err);
-                }
-            });
-            // this.$router.replace({ query: null });
+            this.clearQueryParam();
         },
         getPartyList: async function () {
             try {
@@ -264,6 +258,18 @@ export default {
             } catch (error) {
                 console.log(error);
             }
+        },
+        clearQueryParam() {
+            this.$router.push(this.$route.path).catch((err) => {
+                // Ignore the vuex err regarding  navigating to the page they are already on.
+                if (
+                    err.name !== "NavigationDuplicated" &&
+                    !err.message.includes("Avoided redundant navigation to current location")
+                ) {
+                    // But print any other errors to the console
+                    console.log(err);
+                }
+            });
         },
     },
 };

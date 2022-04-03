@@ -5,7 +5,7 @@
                 <v-avatar color="grey lighten-2" size="45"><v-icon size="55">mdi-account-circle</v-icon></v-avatar>
             </v-col>
             <v-col cols="10">
-                <p class="text-h5 text-right">{{ userInfo.user_name }}님</p>
+                <p class="text-h5 text-right">{{ userInfo.nickname }}님</p>
             </v-col>
         </v-row>
         <v-divider></v-divider>

@@ -75,8 +75,8 @@ export default new Vuex.Store({
         changeLoadingStatusParties: function (state, payload) {
             return (state.isFullyLoadedParties = payload);
         },
-        editName: function (state, payload) {
-            return (state.userInfo.user_name = payload);
+        editNickname: function (state, payload) {
+            return (state.userInfo.nickname = payload);
         },
     },
     actions: {
@@ -119,8 +119,8 @@ export default new Vuex.Store({
         changeLoadingStatusParties: function (context, payload) {
             return context.commit("changeLoadingStatusParties", payload);
         },
-        editName: function (context, payload) {
-            return context.commit("editName", payload);
+        editNickname: function (context, payload) {
+            return context.commit("editNickname", payload);
         },
     },
     modules: {},

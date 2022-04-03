@@ -11,7 +11,12 @@
             </v-col>
             <v-col cols="2" class="pl-0 pr-0 d-flex justify-end">
                 <v-menu
-                    v-if="$route.name !== 'write' && $route.name !== 'profile' && $route.name !== 'login'"
+                    v-if="
+                        $route.name !== 'write' &&
+                        $route.name !== 'profile' &&
+                        $route.name !== 'login' &&
+                        $route.name !== 'map'
+                    "
                     bottom
                     left
                 >
